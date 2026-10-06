@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>SQL CASE WHEN Explained | Data with Ingrid</title>
+
+  <meta name="description" content="Learn how SQL CASE WHEN works with practical examples for segmentation, flags, KPIs and data analysis.">
+
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      color: #1f2937;
+      line-height: 1.7;
+      background: #ffffff;
+    }
+
+    a {
+      color: #111827;
+    }
+
+    h1, h2, h3 {
+      color: #111827;
+    }
+
+    code {
+      background: #f3f4f6;
+      padding: 3px 6px;
+      border-radius: 4px;
+    }
+
+    pre {
+      background: #f3f4f6;
+      padding: 18px;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+
+    .back {
+      margin-bottom: 30px;
+    }
+
+    .note {
+      background: #f9fafb;
+      border-left: 4px solid #111827;
+      padding: 16px;
+      margin: 25px 0;
+    }
+
+    .cta {
+      margin-top: 50px;
+      padding: 25px;
+      background: #111827;
+      color: white;
+      border-radius: 10px;
+    }
+
+    .cta h2 {
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="back">
+    <a href="../index.html">← Back to Data with Ingrid</a>
+  </div>
+
+  <h1>SQL CASE WHEN Explained</h1>
+
+  <p>
+    CASE WHEN lets you create conditional logic inside a SQL query.
+    It is extremely useful for segmentation, flags, categories and business reporting.
+  </p>
+
+  <h2>Basic syntax</h2>
+
+  <pre><code>CASE
+    WHEN condition THEN result
+    ELSE other_result
+END</code></pre>
+
+  <h2>Simple example</h2>
+
+  <p>
+    Suppose you want to classify sales as high or low value.
+  </p>
+
+  <pre><code>SELECT
+    sale_id,
+    amount,
+    CASE
+        WHEN amount >= 1000 THEN 'High Value'
+        ELSE 'Low Value'
+    END AS sales_category
+FROM sales;</code></pre>
+
+  <h2>Multiple conditions</h2>
+
+  <p>
+    You can use several WHEN conditions.
+  </p>
+
+  <pre><code>SELECT
+    customer_id,
+    total_spend,
+    CASE
+        WHEN total_spend >= 5000 THEN 'Gold'
+        WHEN total_spend >= 2000 THEN 'Silver'
+        WHEN total_spend >= 500 THEN 'Bronze'
+        ELSE 'Standard'
+    END AS customer_segment
+FROM customers;</code></pre>
+
+  <div class="note">
+    <strong>Important:</strong>
+    SQL evaluates CASE conditions from top to bottom and stops at the first true condition.
+  </div>
+
+  <h2>CASE WHEN for business flags</h2>
+
+  <p>
+    CASE WHEN is often used to create simple flags.
+  </p>
+
+  <pre><code>SELECT
+    customer_id,
+    last_order_date,
+    CASE
+        WHEN last_order_date >= '2026-09-01' THEN 1
+        ELSE 0
+    END AS active_customer
+FROM customers;</code></pre>
+
+  <p>
+    This creates a binary flag that can later be used in reporting.
+  </p>
+
+  <h2>CASE WHEN with NULL values</h2>
+
+  <p>
+    You can use CASE WHEN to handle missing values.
+  </p>
+
+  <pre><code>SELECT
+    customer_name,
+    CASE
+        WHEN country IS NULL THEN 'Unknown'
+        ELSE country
+    END AS customer_country
+FROM customers;</code></pre>
+
+  <h2>CASE WHEN with aggregation</h2>
+
+  <p>
+    CASE WHEN becomes especially powerful when combined with SUM or COUNT.
+  </p>
+
+  <p>
+    Example: calculate revenue from Italy only.
+  </p>
+
+  <pre><code>SELECT
+    SUM(
+        CASE
+            WHEN country = 'Italy' THEN amount
+            ELSE 0
+        END
+    ) AS italy_revenue
+FROM sales;</code></pre>
+
+  <h2>Conditional counts</h2>
+
+  <p>
+    You can count records that meet a condition.
+  </p>
+
+  <pre><code>SELECT
+    COUNT(
+        CASE
+            WHEN amount >= 1000 THEN 1
+        END
+    ) AS high_value_sales
+FROM sales;</code></pre>
+
+  <h2>Conditional KPIs</h2>
+
+  <p>
+    Analysts often use CASE WHEN to calculate several KPIs in one query.
+  </p>
+
+  <pre><code>SELECT
+    SUM(amount) AS total_revenue,
+
+    SUM(
+        CASE
+            WHEN country = 'Italy' THEN amount
+            ELSE 0
+        END
+    ) AS italy_revenue,
+
+    SUM(
+        CASE
+            WHEN country = 'France' THEN amount
+            ELSE 0
+        END
+    ) AS france_revenue
+
+FROM sales;</code></pre>
+
+  <h2>CASE WHEN with GROUP BY</h2>
+
+  <p>
+    You can create categories and aggregate them.
+  </p>
+
+  <pre><code>SELECT
+    CASE
+        WHEN amount >= 1000 THEN 'High Value'
+        WHEN amount >= 500 THEN 'Medium Value'
+        ELSE 'Low Value'
+    END AS sales_category,
+
+    COUNT(*) AS number_of_sales,
+    SUM(amount) AS total_revenue
+
+FROM sales
+
+GROUP BY
+    CASE
+        WHEN amount >= 1000 THEN 'High Value'
+        WHEN amount >= 500 THEN 'Medium Value'
+        ELSE 'Low Value'
+    END;</code></pre>
+
+  <h2>CASE WHEN for age groups</h2>
+
+  <pre><code>SELECT
+    customer_id,
+    age,
+    CASE
+        WHEN age < 25 THEN 'Under 25'
+        WHEN age < 40 THEN '25-39'
+        WHEN age < 60 THEN '40-59'
+        ELSE '60+'
+    END AS age_group
+FROM customers;</code></pre>
+
+  <h2>CASE WHEN for performance classification</h2>
+
+  <p>
+    Suppose you want to classify regions by revenue.
+  </p>
+
+  <pre><code>SELECT
+    region,
+    SUM(amount) AS revenue,
+
+    CASE
+        WHEN SUM(amount) >= 1000000 THEN 'Excellent'
+        WHEN SUM(amount) >= 500000 THEN 'Good'
+        WHEN SUM(amount) >= 100000 THEN 'Average'
+        ELSE 'Low'
+    END AS performance
+
+FROM sales
+GROUP BY region;</code></pre>
+
+  <h2>CASE WHEN inside ORDER BY</h2>
+
+  <p>
+    You can also use CASE WHEN to create custom sorting logic.
+  </p>
+
+  <pre><code>SELECT
+    customer_name,
+    customer_type
+FROM customers
+ORDER BY
+    CASE
+        WHEN customer_type = 'VIP' THEN 1
+        WHEN customer_type = 'Premium' THEN 2
+        ELSE 3
+    END;</code></pre>
+
+  <h2>Common mistake: overlapping conditions</h2>
+
+  <p>
+    Imagine:
+  </p>
+
+  <pre><code>CASE
+    WHEN amount >= 500 THEN 'Medium'
+    WHEN amount >= 1000 THEN 'High'
+END</code></pre>
+
+  <p>
+    This is wrong logically because values above 1000 also satisfy the first condition.
+  </p>
+
+  <p>
+    Better:
+  </p>
+
+  <pre><code>CASE
+    WHEN amount >= 1000 THEN 'High'
+    WHEN amount >= 500 THEN 'Medium'
+    ELSE 'Low'
+END</code></pre>
+
+  <h2>Common analyst use cases</h2>
+
+  <ul>
+    <li>customer segmentation</li>
+    <li>risk flags</li>
+    <li>active vs inactive users</li>
+    <li>product categories</li>
+    <li>sales performance bands</li>
+    <li>regional classifications</li>
+    <li>conditional KPIs</li>
+    <li>data quality flags</li>
+  </ul>
+
+  <h2>Practical example</h2>
+
+  <p>
+    Suppose you want to segment customers based on their total revenue.
+  </p>
+
+  <pre><code>SELECT
+    customer_id,
+    SUM(amount) AS total_revenue,
+
+    CASE
+        WHEN SUM(amount) >= 10000 THEN 'High Value'
+        WHEN SUM(amount) >= 5000 THEN 'Medium Value'
+        ELSE 'Low Value'
+    END AS customer_segment
+
+FROM sales
+GROUP BY customer_id
+ORDER BY total_revenue DESC;</code></pre>
+
+  <h2>Quick checklist</h2>
+
+  <ul>
+    <li>What condition are you testing?</li>
+    <li>Are the most specific conditions first?</li>
+    <li>Do you need an ELSE?</li>
+    <li>Are conditions mutually exclusive?</li>
+    <li>Can CASE WHEN simplify your KPI logic?</li>
+    <li>Are you using it inside SUM or COUNT where useful?</li>
+  </ul>
+
+  <div class="cta">
+    <h2>Need help with SQL logic?</h2>
+
+    <p>
+      If you are working with SQL segmentation, reporting, KPIs or analytical datasets,
+      I offer practical SQL, data analysis and business intelligence support.
+    </p>
+  </div>
+
+</body>
+</html>
