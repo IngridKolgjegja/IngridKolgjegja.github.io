@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>SQL JOINs Explained | Data with Ingrid</title>
+
+  <meta name="description" content="Learn SQL JOINs with clear examples, including INNER JOIN, LEFT JOIN, RIGHT JOIN and FULL OUTER JOIN for practical data analysis.">
+
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      color: #1f2937;
+      line-height: 1.7;
+      background: #ffffff;
+    }
+
+    a {
+      color: #111827;
+    }
+
+    h1, h2, h3 {
+      color: #111827;
+    }
+
+    code {
+      background: #f3f4f6;
+      padding: 3px 6px;
+      border-radius: 4px;
+    }
+
+    pre {
+      background: #f3f4f6;
+      padding: 18px;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+
+    .back {
+      margin-bottom: 30px;
+    }
+
+    .note {
+      background: #f9fafb;
+      border-left: 4px solid #111827;
+      padding: 16px;
+      margin: 25px 0;
+    }
+
+    .cta {
+      margin-top: 50px;
+      padding: 25px;
+      background: #111827;
+      color: white;
+      border-radius: 10px;
+    }
+
+    .cta h2 {
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="back">
+    <a href="../index.html">← Back to Data with Ingrid</a>
+  </div>
+
+  <h1>SQL JOINs Explained</h1>
+
+  <p>
+    JOINs are one of the most important concepts in SQL because real-world data
+    is usually split across multiple tables.
+  </p>
+
+  <p>
+    JOINs allow you to combine related data using a common key.
+  </p>
+
+  <h2>Example tables</h2>
+
+  <p>
+    Imagine you have two tables:
+  </p>
+
+  <h3>customers</h3>
+
+  <pre><code>customer_id | customer_name | country
+1           | Anna          | Italy
+2           | Marco         | France
+3           | Sofia         | Spain</code></pre>
+
+  <h3>orders</h3>
+
+  <pre><code>order_id | customer_id | amount
+101      | 1           | 500
+102      | 1           | 300
+103      | 2           | 700
+104      | 4           | 200</code></pre>
+
+  <p>
+    The common field is:
+  </p>
+
+  <pre><code>customer_id</code></pre>
+
+  <h2>INNER JOIN</h2>
+
+  <p>
+    An INNER JOIN returns only rows that have matching values in both tables.
+  </p>
+
+  <pre><code>SELECT
+    c.customer_name,
+    o.order_id,
+    o.amount
+FROM customers c
+INNER JOIN orders o
+    ON c.customer_id = o.customer_id;</code></pre>
+
+  <p>
+    This returns customers that have matching orders.
+  </p>
+
+  <div class="note">
+    <strong>Think of INNER JOIN as:</strong>
+    keep only the records that exist in both tables.
+  </div>
+
+  <h2>LEFT JOIN</h2>
+
+  <p>
+    A LEFT JOIN returns all rows from the left table and matching rows from the right table.
+  </p>
+
+  <pre><code>SELECT
+    c.customer_name,
+    o.order_id,
+    o.amount
+FROM customers c
+LEFT JOIN orders o
+    ON c.customer_id = o.customer_id;</code></pre>
+
+  <p>
+    Customers without orders are still returned, but the order columns will contain NULL.
+  </p>
+
+  <h3>Why LEFT JOIN is useful for analysts</h3>
+
+  <p>
+    LEFT JOIN is extremely useful when you want to identify missing activity.
+  </p>
+
+  <p>
+    For example:
+  </p>
+
+  <ul>
+    <li>customers with no orders</li>
+    <li>products with no sales</li>
+    <li>employees with no recorded activity</li>
+    <li>accounts with no transactions</li>
+  </ul>
+
+  <p>
+    Example:
+  </p>
+
+  <pre><code>SELECT
+    c.customer_id,
+    c.customer_name
+FROM customers c
+LEFT JOIN orders o
+    ON c.customer_id = o.customer_id
+WHERE o.order_id IS NULL;</code></pre>
+
+  <p>
+    This returns customers who have never placed an order.
+  </p>
+
+  <h2>RIGHT JOIN</h2>
+
+  <p>
+    A RIGHT JOIN returns all rows from the right table and matching rows from the left table.
+  </p>
+
+  <pre><code>SELECT
+    c.customer_name,
+    o.order_id,
+    o.amount
+FROM customers c
+RIGHT JOIN orders o
+    ON c.customer_id = o.customer_id;</code></pre>
+
+  <p>
+    In practice, many analysts use LEFT JOIN more often because you can usually
+    reverse the table order and get the same logic more clearly.
+  </p>
+
+  <h2>FULL OUTER JOIN</h2>
+
+  <p>
+    A FULL OUTER JOIN returns:
+  </p>
+
+  <ul>
+    <li>matching rows</li>
+    <li>unmatched rows from the left table</li>
+    <li>unmatched rows from the right table</li>
+  </ul>
+
+  <pre><code>SELECT
+    c.customer_name,
+    o.order_id,
+    o.amount
+FROM customers c
+FULL OUTER JOIN orders o
+    ON c.customer_id = o.customer_id;</code></pre>
+
+  <p>
+    This can be useful for reconciliation and data quality checks.
+  </p>
+
+  <h2>JOIN types summary</h2>
+
+  <pre><code>INNER JOIN
+Only matching records
+
+LEFT JOIN
+All left-table records + matches
+
+RIGHT JOIN
+All right-table records + matches
+
+FULL OUTER JOIN
+Everything from both tables</code></pre>
+
+  <h2>Joining more than two tables</h2>
+
+  <p>
+    Real analysis often requires several joins.
+  </p>
+
+  <p>
+    Imagine:
+  </p>
+
+  <pre><code>orders
+customers
+products</code></pre>
+
+  <p>
+    You could write:
+  </p>
+
+  <pre><code>SELECT
+    o.order_id,
+    c.customer_name,
+    p.product_name,
+    o.amount
+FROM orders o
+LEFT JOIN customers c
+    ON o.customer_id = c.customer_id
+LEFT JOIN products p
+    ON o.product_id = p.product_id;</code></pre>
+
+  <p>
+    This combines order information with both customer and product details.
+  </p>
+
+  <h2>Table aliases</h2>
+
+  <p>
+    Aliases make SQL queries shorter and easier to read.
+  </p>
+
+  <pre><code>FROM customers c
+LEFT JOIN orders o</code></pre>
+
+  <p>
+    Here:
+  </p>
+
+  <pre><code>c = customers
+o = orders</code></pre>
+
+  <p>
+    You can then write:
+  </p>
+
+  <pre><code>c.customer_name
+o.amount</code></pre>
+
+  <h2>Common JOIN mistake: missing ON condition</h2>
+
+  <p>
+    JOINs should use the correct matching key.
+  </p>
+
+  <pre><code>ON customers.customer_id = orders.customer_id</code></pre>
+
+  <p>
+    Joining on the wrong columns can produce incorrect results.
+  </p>
+
+  <h2>Common JOIN mistake: duplicated rows</h2>
+
+  <p>
+    If the key is not unique in one or both tables, a JOIN can create more rows than expected.
+  </p>
+
+  <p>
+    For example, if customer 1 appears twice in the customer table and has three orders,
+    the join can produce six rows.
+  </p>
+
+  <div class="note">
+    <strong>Important:</strong>
+    always understand the relationship between your tables before joining them.
+  </div>
+
+  <h2>Checking row counts</h2>
+
+  <p>
+    Before and after a JOIN, it is often useful to check the number of rows.
+  </p>
+
+  <pre><code>SELECT COUNT(*)
+FROM orders;</code></pre>
+
+  <p>
+    Then compare it with the result after the JOIN.
+  </p>
+
+  <p>
+    Unexpected increases in row count can indicate duplicate keys or many-to-many relationships.
+  </p>
+
+  <h2>Joining and aggregating</h2>
+
+  <p>
+    Analysts often join tables and then calculate KPIs.
+  </p>
+
+  <p>
+    Example: revenue by country.
+  </p>
+
+  <pre><code>SELECT
+    c.country,
+    SUM(o.amount) AS total_revenue
+FROM orders o
+LEFT JOIN customers c
+    ON o.customer_id = c.customer_id
+GROUP BY c.country
+ORDER BY total_revenue DESC;</code></pre>
+
+  <h2>Which JOIN should you use?</h2>
+
+  <p>
+    Ask yourself what you want to keep.
+  </p>
+
+  <ul>
+    <li>
+      Use <strong>INNER JOIN</strong> when you only need records that match.
+    </li>
+
+    <li>
+      Use <strong>LEFT JOIN</strong> when you want to keep every record from your main table.
+    </li>
+
+    <li>
+      Use <strong>FULL OUTER JOIN</strong> when you need to identify records missing from either side.
+    </li>
+  </ul>
+
+  <h2>Practical analyst example</h2>
+
+  <p>
+    Suppose you want to know:
+  </p>
+
+  <p>
+    <strong>How much revenue has each customer generated?</strong>
+  </p>
+
+  <pre><code>SELECT
+    c.customer_id,
+    c.customer_name,
+    SUM(o.amount) AS total_revenue
+FROM customers c
+LEFT JOIN orders o
+    ON c.customer_id = o.customer_id
+GROUP BY
+    c.customer_id,
+    c.customer_name
+ORDER BY total_revenue DESC;</code></pre>
+
+  <p>
+    Using LEFT JOIN means customers with no orders can still appear in the result.
+  </p>
+
+  <h2>Quick checklist</h2>
+
+  <ul>
+    <li>What table should be your starting table?</li>
+    <li>What key connects the tables?</li>
+    <li>Is the key unique where you expect it to be?</li>
+    <li>Do you want unmatched records?</li>
+    <li>Did the row count increase unexpectedly?</li>
+    <li>Are NULL values expected after the JOIN?</li>
+  </ul>
+
+  <div class="cta">
+    <h2>Need help with SQL?</h2>
+
+    <p>
+      If you are working with JOINs, reporting queries, Power BI or analytical datasets,
+      I offer practical SQL, data analysis and business intelligence support.
+    </p>
+  </div>
+
+</body>
+</html>
