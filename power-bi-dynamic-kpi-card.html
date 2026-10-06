@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>How to Create a Dynamic KPI Card in Power BI | Data with Ingrid</title>
+
+  <meta name="description" content="Learn how to create a dynamic KPI card in Power BI that responds to filters and user selections using DAX.">
+
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      color: #1f2937;
+      line-height: 1.7;
+      background: #ffffff;
+    }
+
+    a {
+      color: #111827;
+    }
+
+    h1, h2, h3 {
+      color: #111827;
+    }
+
+    code {
+      background: #f3f4f6;
+      padding: 3px 6px;
+      border-radius: 4px;
+    }
+
+    pre {
+      background: #f3f4f6;
+      padding: 18px;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+
+    .back {
+      margin-bottom: 30px;
+    }
+
+    .note {
+      background: #f9fafb;
+      border-left: 4px solid #111827;
+      padding: 16px;
+      margin: 25px 0;
+    }
+
+    .cta {
+      margin-top: 50px;
+      padding: 25px;
+      background: #111827;
+      color: white;
+      border-radius: 10px;
+    }
+
+    .cta h2 {
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="back">
+    <a href="index.html">← Back to Data with Ingrid</a>
+  </div>
+
+  <h1>How to Create a Dynamic KPI Card in Power BI</h1>
+
+  <p>
+    Dynamic KPI cards are useful when you want a Power BI card to react to filters,
+    slicers or user selections instead of always showing the same value.
+  </p>
+
+  <h2>Example scenario</h2>
+
+  <p>
+    Imagine you have a sales dashboard and you want a card to show total sales
+    for the current filter selection.
+  </p>
+
+  <p>
+    Start with a basic measure:
+  </p>
+
+  <pre><code>Total Sales =
+SUM(Sales[Amount])</code></pre>
+
+  <p>
+    If the user filters by country, product, date or customer, the card will update automatically.
+  </p>
+
+  <h2>Dynamic label using SELECTEDVALUE</h2>
+
+  <p>
+    You can also create a dynamic label that changes depending on the user's selection.
+  </p>
+
+  <pre><code>Selected Product Label =
+SELECTEDVALUE(
+    Products[Product Name],
+    "All Products"
+)</code></pre>
+
+  <p>
+    If one product is selected, Power BI returns that product name.
+    If multiple products or no single product are selected, it returns
+    <code>"All Products"</code>.
+  </p>
+
+  <h2>Dynamic KPI title</h2>
+
+  <p>
+    You can combine text with a dynamic selection:
+  </p>
+
+  <pre><code>KPI Title =
+"Sales - " &
+SELECTEDVALUE(
+    Products[Product Name],
+    "All Products"
+)</code></pre>
+
+  <p>
+    The result could be:
+  </p>
+
+  <pre><code>Sales - Laptop</code></pre>
+
+  <p>
+    or:
+  </p>
+
+  <pre><code>Sales - All Products</code></pre>
+
+  <h2>Show a value only when something is selected</h2>
+
+  <p>
+    Sometimes you may want the card to stay blank until the user selects a specific item.
+  </p>
+
+  <pre><code>Selected Product Sales =
+IF(
+    HASONEVALUE(Products[Product Name]),
+    [Total Sales],
+    BLANK()
+)</code></pre>
+
+  <div class="note">
+    <strong>Tip:</strong>
+    <code>SELECTEDVALUE</code>, <code>HASONEVALUE</code> and <code>ISFILTERED</code>
+    are very useful when building interactive dashboards.
+  </div>
+
+  <h2>Why dynamic KPI cards are useful</h2>
+
+  <ul>
+    <li>They make dashboards easier to understand.</li>
+    <li>They react to user selections.</li>
+    <li>They reduce the need for multiple separate cards.</li>
+    <li>They help create more interactive reports.</li>
+  </ul>
+
+  <div class="cta">
+    <h2>Need help with Power BI?</h2>
+
+    <p>
+      If you're stuck with a KPI, DAX measure, filter, slicer or dashboard,
+      I offer practical Power BI troubleshooting and data analysis support.
+    </p>
+  </div>
+
+</body>
+</html>
