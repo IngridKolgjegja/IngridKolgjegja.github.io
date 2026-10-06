@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Power BI Relationships Explained | Data with Ingrid</title>
+
+  <meta name="description" content="Learn how relationships work in Power BI, including one-to-many relationships, active and inactive relationships, cross-filter direction and common modeling mistakes.">
+
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      color: #1f2937;
+      line-height: 1.7;
+      background: #ffffff;
+    }
+
+    a {
+      color: #111827;
+    }
+
+    h1, h2, h3 {
+      color: #111827;
+    }
+
+    code {
+      background: #f3f4f6;
+      padding: 3px 6px;
+      border-radius: 4px;
+    }
+
+    pre {
+      background: #f3f4f6;
+      padding: 18px;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+
+    .back {
+      margin-bottom: 30px;
+    }
+
+    .note {
+      background: #f9fafb;
+      border-left: 4px solid #111827;
+      padding: 16px;
+      margin: 25px 0;
+    }
+
+    .cta {
+      margin-top: 50px;
+      padding: 25px;
+      background: #111827;
+      color: white;
+      border-radius: 10px;
+    }
+
+    .cta h2 {
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="back">
+    <a href="index.html">← Back to Data with Ingrid</a>
+  </div>
+
+  <h1>Power BI Relationships Explained</h1>
+
+  <p>
+    Relationships are one of the most important parts of a Power BI data model.
+    If your relationships are wrong, filters, measures and visuals can behave in unexpected ways.
+  </p>
+
+  <h2>What is a relationship in Power BI?</h2>
+
+  <p>
+    A relationship connects two tables through columns that contain matching values.
+  </p>
+
+  <p>
+    For example, imagine you have:
+  </p>
+
+  <ul>
+    <li>a <code>Sales</code> table</li>
+    <li>a <code>Products</code> table</li>
+  </ul>
+
+  <p>
+    Both tables contain a product ID.
+  </p>
+
+  <pre><code>Sales[ProductID]
+
+Products[ProductID]</code></pre>
+
+  <p>
+    Power BI can use these columns to connect the tables.
+  </p>
+
+  <h2>One-to-many relationships</h2>
+
+  <p>
+    The most common relationship in Power BI is one-to-many.
+  </p>
+
+  <p>
+    For example:
+  </p>
+
+  <pre><code>Products[ProductID]  1 → *  Sales[ProductID]</code></pre>
+
+  <p>
+    The Products table contains one row per product, while the Sales table can contain many rows for the same product.
+  </p>
+
+  <div class="note">
+    <strong>Good practice:</strong>
+    dimension tables usually sit on the "one" side and fact tables on the "many" side.
+  </div>
+
+  <h2>Why relationships matter</h2>
+
+  <p>
+    Relationships allow filters to move between tables.
+  </p>
+
+  <p>
+    If you use:
+  </p>
+
+  <pre><code>Products[Category]</code></pre>
+
+  <p>
+    in a slicer, Power BI can use the relationship to filter the rows in the Sales table.
+  </p>
+
+  <h2>Active and inactive relationships</h2>
+
+  <p>
+    Power BI allows multiple relationships between two tables, but normally only one can be active at a time.
+  </p>
+
+  <p>
+    An active relationship is shown with a solid line in Model view.
+  </p>
+
+  <p>
+    An inactive relationship is shown with a dashed line.
+  </p>
+
+  <p>
+    Inactive relationships can still be used inside DAX with functions such as:
+  </p>
+
+  <pre><code>USERELATIONSHIP()</code></pre>
+
+  <h2>Cross-filter direction</h2>
+
+  <p>
+    Relationships also have a cross-filter direction.
+  </p>
+
+  <p>
+    The two main options are:
+  </p>
+
+  <ul>
+    <li>Single</li>
+    <li>Both</li>
+  </ul>
+
+  <p>
+    Single-direction filtering is usually easier to understand and control.
+  </p>
+
+  <p>
+    Bidirectional filtering can be useful in some models, but it can also create ambiguity or unexpected filter behavior.
+  </p>
+
+  <h2>Common relationship problems</h2>
+
+  <h3>1. Duplicate values on the "one" side</h3>
+
+  <p>
+    If the supposed dimension table contains duplicate keys, Power BI may not allow a one-to-many relationship.
+  </p>
+
+  <h3>2. Different data types</h3>
+
+  <p>
+    The two columns used in the relationship should have compatible data types.
+  </p>
+
+  <p>
+    For example, one column should not be text while the other is numeric.
+  </p>
+
+  <h3>3. Missing relationships</h3>
+
+  <p>
+    If two tables are not connected, filters may not propagate between them.
+  </p>
+
+  <h3>4. Wrong cardinality</h3>
+
+  <p>
+    Always check whether the relationship should be:
+  </p>
+
+  <ul>
+    <li>one-to-many</li>
+    <li>many-to-one</li>
+    <li>one-to-one</li>
+    <li>many-to-many</li>
+  </ul>
+
+  <h2>Star schema</h2>
+
+  <p>
+    A common Power BI model uses a star schema.
+  </p>
+
+  <p>
+    A central fact table is connected to several dimension tables.
+  </p>
+
+  <pre><code>          Customers
+              |
+              |
+Products — Sales — Calendar
+              |
+              |
+           Regions</code></pre>
+
+  <p>
+    This structure usually makes filtering and DAX easier to manage.
+  </p>
+
+  <h2>Quick checklist</h2>
+
+  <ul>
+    <li>Are the correct columns connected?</li>
+    <li>Are the data types compatible?</li>
+    <li>Is the relationship active?</li>
+    <li>Is the cardinality correct?</li>
+    <li>Is the filter direction appropriate?</li>
+    <li>Does the dimension table contain unique keys?</li>
+  </ul>
+
+  <div class="cta">
+    <h2>Need help with your Power BI data model?</h2>
+
+    <p>
+      If relationships, filters or your model structure are not behaving as expected,
+      I offer practical Power BI troubleshooting and data analysis support.
+    </p>
+  </div>
+
+</body>
+</html>
