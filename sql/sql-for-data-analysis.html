@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>SQL for Data Analysis | Data with Ingrid</title>
+
+  <meta name="description" content="Learn how SQL is used for data analysis, including filtering, grouping, joins, KPIs, business questions and practical analyst workflows.">
+
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      color: #1f2937;
+      line-height: 1.7;
+      background: #ffffff;
+    }
+
+    a {
+      color: #111827;
+    }
+
+    h1, h2, h3 {
+      color: #111827;
+    }
+
+    code {
+      background: #f3f4f6;
+      padding: 3px 6px;
+      border-radius: 4px;
+    }
+
+    pre {
+      background: #f3f4f6;
+      padding: 18px;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+
+    .back {
+      margin-bottom: 30px;
+    }
+
+    .note {
+      background: #f9fafb;
+      border-left: 4px solid #111827;
+      padding: 16px;
+      margin: 25px 0;
+    }
+
+    .cta {
+      margin-top: 50px;
+      padding: 25px;
+      background: #111827;
+      color: white;
+      border-radius: 10px;
+    }
+
+    .cta h2 {
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="back">
+    <a href="../index.html">← Back to Data with Ingrid</a>
+  </div>
+
+  <h1>SQL for Data Analysis</h1>
+
+  <p>
+    SQL is one of the most important tools for data analysts because it allows you
+    to extract, filter, combine and summarise data directly from databases.
+  </p>
+
+  <p>
+    In practice, analysts use SQL to answer business questions such as:
+  </p>
+
+  <ul>
+    <li>How much revenue did we generate this month?</li>
+    <li>Which customers spent the most?</li>
+    <li>Which products are growing fastest?</li>
+    <li>How many active users do we have?</li>
+    <li>Which regions are underperforming?</li>
+  </ul>
+
+  <h2>1. Selecting data</h2>
+
+  <p>
+    The <code>SELECT</code> statement is used to retrieve columns from a table.
+  </p>
+
+  <pre><code>SELECT
+    customer_id,
+    customer_name,
+    country
+FROM customers;</code></pre>
+
+  <p>
+    To retrieve every column:
+  </p>
+
+  <pre><code>SELECT *
+FROM customers;</code></pre>
+
+  <div class="note">
+    <strong>Good practice:</strong>
+    in production analysis, selecting only the columns you actually need is usually
+    clearer and more efficient than using <code>SELECT *</code>.
+  </div>
+
+  <h2>2. Filtering data with WHERE</h2>
+
+  <p>
+    Analysts rarely need every row in a database. The <code>WHERE</code> clause lets
+    you filter the data.
+  </p>
+
+  <pre><code>SELECT *
+FROM sales
+WHERE country = 'Italy';</code></pre>
+
+  <p>
+    You can combine several conditions:
+  </p>
+
+  <pre><code>SELECT *
+FROM sales
+WHERE country = 'Italy'
+  AND sales_amount > 1000;</code></pre>
+
+  <h2>3. Sorting results</h2>
+
+  <p>
+    Use <code>ORDER BY</code> to sort results.
+  </p>
+
+  <pre><code>SELECT
+    customer_name,
+    sales_amount
+FROM sales
+ORDER BY sales_amount DESC;</code></pre>
+
+  <p>
+    <code>DESC</code> sorts from highest to lowest.
+    <code>ASC</code> sorts from lowest to highest.
+  </p>
+
+  <h2>4. Aggregating data</h2>
+
+  <p>
+    SQL is especially useful for calculating KPIs.
+  </p>
+
+  <p>
+    Common aggregation functions include:
+  </p>
+
+  <ul>
+    <li><code>SUM()</code></li>
+    <li><code>AVG()</code></li>
+    <li><code>COUNT()</code></li>
+    <li><code>MIN()</code></li>
+    <li><code>MAX()</code></li>
+  </ul>
+
+  <p>
+    Example:
+  </p>
+
+  <pre><code>SELECT
+    SUM(sales_amount) AS total_sales
+FROM sales;</code></pre>
+
+  <h2>5. GROUP BY</h2>
+
+  <p>
+    <code>GROUP BY</code> lets you calculate metrics for categories.
+  </p>
+
+  <p>
+    For example, sales by country:
+  </p>
+
+  <pre><code>SELECT
+    country,
+    SUM(sales_amount) AS total_sales
+FROM sales
+GROUP BY country;</code></pre>
+
+  <p>
+    Or number of customers by region:
+  </p>
+
+  <pre><code>SELECT
+    region,
+    COUNT(DISTINCT customer_id) AS customers
+FROM sales
+GROUP BY region;</code></pre>
+
+  <h2>6. Filtering aggregated results with HAVING</h2>
+
+  <p>
+    <code>WHERE</code> filters rows before aggregation.
+    <code>HAVING</code> filters groups after aggregation.
+  </p>
+
+  <pre><code>SELECT
+    country,
+    SUM(sales_amount) AS total_sales
+FROM sales
+GROUP BY country
+HAVING SUM(sales_amount) > 100000;</code></pre>
+
+  <h2>7. Joining tables</h2>
+
+  <p>
+    Data is usually stored across multiple tables.
+    SQL joins allow analysts to combine those tables.
+  </p>
+
+  <p>
+    Imagine:
+  </p>
+
+  <pre><code>customers
+---------
+customer_id
+customer_name
+country
+
+sales
+-----
+sale_id
+customer_id
+sales_amount</code></pre>
+
+  <p>
+    You can combine them using:
+  </p>
+
+  <pre><code>SELECT
+    c.customer_name,
+    c.country,
+    s.sales_amount
+FROM sales s
+LEFT JOIN customers c
+    ON s.customer_id = c.customer_id;</code></pre>
+
+  <h2>8. Creating business KPIs</h2>
+
+  <p>
+    SQL can calculate metrics that later feed dashboards in tools such as Power BI.
+  </p>
+
+  <p>
+    Example:
+  </p>
+
+  <pre><code>SELECT
+    COUNT(DISTINCT order_id) AS total_orders,
+    COUNT(DISTINCT customer_id) AS unique_customers,
+    SUM(sales_amount) AS total_revenue,
+    AVG(sales_amount) AS average_order_value
+FROM sales;</code></pre>
+
+  <h2>9. CASE WHEN</h2>
+
+  <p>
+    <code>CASE WHEN</code> lets you create categories based on conditions.
+  </p>
+
+  <pre><code>SELECT
+    customer_id,
+    sales_amount,
+    CASE
+        WHEN sales_amount >= 1000 THEN 'High Value'
+        WHEN sales_amount >= 500 THEN 'Medium Value'
+        ELSE 'Low Value'
+    END AS customer_segment
+FROM sales;</code></pre>
+
+  <p>
+    This is extremely useful for segmentation and business reporting.
+  </p>
+
+  <h2>10. Finding duplicates</h2>
+
+  <p>
+    Data analysts often need to identify duplicate records.
+  </p>
+
+  <pre><code>SELECT
+    customer_id,
+    COUNT(*) AS number_of_rows
+FROM customers
+GROUP BY customer_id
+HAVING COUNT(*) > 1;</code></pre>
+
+  <h2>11. Working with NULL values</h2>
+
+  <p>
+    Missing values in SQL are represented by <code>NULL</code>.
+  </p>
+
+  <p>
+    To find them:
+  </p>
+
+  <pre><code>SELECT *
+FROM customers
+WHERE email IS NULL;</code></pre>
+
+  <p>
+    To replace a NULL value:
+  </p>
+
+  <pre><code>SELECT
+    customer_name,
+    COALESCE(country, 'Unknown') AS country
+FROM customers;</code></pre>
+
+  <h2>12. A typical analyst workflow</h2>
+
+  <p>
+    A real analysis might follow this process:
+  </p>
+
+  <ol>
+    <li>Identify the business question.</li>
+    <li>Find the relevant tables.</li>
+    <li>Join the required data.</li>
+    <li>Filter irrelevant records.</li>
+    <li>Create KPIs.</li>
+    <li>Check missing values and duplicates.</li>
+    <li>Validate the results.</li>
+    <li>Send the result to Power BI, Excel or another reporting tool.</li>
+  </ol>
+
+  <h2>Example: sales analysis</h2>
+
+  <p>
+    Suppose management asks:
+  </p>
+
+  <p>
+    <strong>Which five countries generated the most revenue?</strong>
+  </p>
+
+  <p>
+    A query could be:
+  </p>
+
+  <pre><code>SELECT
+    country,
+    SUM(sales_amount) AS total_revenue
+FROM sales
+GROUP BY country
+ORDER BY total_revenue DESC
+LIMIT 5;</code></pre>
+
+  <p>
+    Depending on the SQL database you use, the syntax for limiting rows may differ.
+  </p>
+
+  <h2>What should a data analyst learn next?</h2>
+
+  <p>
+    Once you understand the basics, the most useful SQL topics for data analysis include:
+  </p>
+
+  <ul>
+    <li>JOINs</li>
+    <li>GROUP BY and HAVING</li>
+    <li>CASE WHEN</li>
+    <li>subqueries</li>
+    <li>CTEs</li>
+    <li>window functions</li>
+    <li>ROW_NUMBER</li>
+    <li>RANK and DENSE_RANK</li>
+    <li>LAG and LEAD</li>
+    <li>running totals</li>
+    <li>month-over-month analysis</li>
+  </ul>
+
+  <div class="cta">
+    <h2>Need help with SQL or data analysis?</h2>
+
+    <p>
+      If you are working with SQL, reporting, Power BI or analytical datasets,
+      I offer practical data analysis and business intelligence support.
+    </p>
+  </div>
+
+</body>
+</html>
