@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Power BI Drillthrough Explained | Data with Ingrid</title>
+
+  <meta name="description" content="Learn how Power BI drillthrough works and how to create detailed report pages that open filtered by customer, product, region or other dimensions.">
+
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      color: #1f2937;
+      line-height: 1.7;
+      background: #ffffff;
+    }
+
+    a {
+      color: #111827;
+    }
+
+    h1, h2, h3 {
+      color: #111827;
+    }
+
+    code {
+      background: #f3f4f6;
+      padding: 3px 6px;
+      border-radius: 4px;
+    }
+
+    pre {
+      background: #f3f4f6;
+      padding: 18px;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+
+    .back {
+      margin-bottom: 30px;
+    }
+
+    .note {
+      background: #f9fafb;
+      border-left: 4px solid #111827;
+      padding: 16px;
+      margin: 25px 0;
+    }
+
+    .cta {
+      margin-top: 50px;
+      padding: 25px;
+      background: #111827;
+      color: white;
+      border-radius: 10px;
+    }
+
+    .cta h2 {
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="back">
+    <a href="index.html">← Back to Data with Ingrid</a>
+  </div>
+
+  <h1>Power BI Drillthrough Explained</h1>
+
+  <p>
+    Drillthrough in Power BI allows users to move from a summary view to a detailed page
+    that is automatically filtered for the item they selected.
+  </p>
+
+  <p>
+    It is useful when you want to keep the main dashboard clean while still giving users
+    access to detailed information.
+  </p>
+
+  <h2>What is drillthrough?</h2>
+
+  <p>
+    Imagine you have a sales dashboard showing sales by customer.
+  </p>
+
+  <p>
+    Instead of showing every customer detail on the main page, you can create a separate
+    customer detail page.
+  </p>
+
+  <p>
+    When the user right-clicks a customer and selects drillthrough, Power BI opens the
+    detail page filtered for that customer.
+  </p>
+
+  <h2>Example</h2>
+
+  <p>
+    Suppose your main page contains:
+  </p>
+
+  <pre><code>Customer Name
+Total Sales
+Number of Orders
+Average Order Value</code></pre>
+
+  <p>
+    You create another page called:
+  </p>
+
+  <pre><code>Customer Details</code></pre>
+
+  <p>
+    On that page, you might show:
+  </p>
+
+  <ul>
+    <li>customer information</li>
+    <li>sales history</li>
+    <li>orders over time</li>
+    <li>products purchased</li>
+    <li>KPIs for that customer</li>
+  </ul>
+
+  <h2>How to create a drillthrough page</h2>
+
+  <ol>
+    <li>Create a new report page.</li>
+    <li>Add the visuals you want to show on the detail page.</li>
+    <li>Drag the drillthrough field into the Drillthrough filters area.</li>
+  </ol>
+
+  <p>
+    For example:
+  </p>
+
+  <pre><code>Customers[Customer Name]</code></pre>
+
+  <p>
+    Now Power BI knows that this page should be filtered by customer.
+  </p>
+
+  <h2>How users activate drillthrough</h2>
+
+  <p>
+    On the main report page, the user can right-click a data point related to the same field.
+  </p>
+
+  <p>
+    For example:
+  </p>
+
+  <pre><code>Right-click customer → Drill through → Customer Details</code></pre>
+
+  <p>
+    The detail page opens with the selected customer already applied as a filter.
+  </p>
+
+  <div class="note">
+    <strong>Important:</strong>
+    the source visual must contain a field that matches the drillthrough field,
+    directly or through the current filter context.
+  </div>
+
+  <h2>Add a back button</h2>
+
+  <p>
+    A drillthrough page should normally include a back button so users can easily
+    return to the previous page.
+  </p>
+
+  <p>
+    Power BI can automatically create a back button when you set up drillthrough.
+  </p>
+
+  <p>
+    You can also add one manually using:
+  </p>
+
+  <pre><code>Insert → Buttons → Back</code></pre>
+
+  <h2>Keep all filters</h2>
+
+  <p>
+    Power BI includes a setting called <strong>Keep all filters</strong>.
+  </p>
+
+  <p>
+    When enabled, other filters from the source page can also be passed to the
+    drillthrough page.
+  </p>
+
+  <p>
+    For example, if the user has selected:
+  </p>
+
+  <pre><code>Year = 2026
+Region = Europe
+Customer = ABC Ltd</code></pre>
+
+  <p>
+    the drillthrough page can preserve those filters as well.
+  </p>
+
+  <h2>Multiple drillthrough fields</h2>
+
+  <p>
+    You can add more than one field to the drillthrough filter area.
+  </p>
+
+  <p>
+    For example:
+  </p>
+
+  <pre><code>Customer
+Region</code></pre>
+
+  <p>
+    This gives you more control over which context is passed to the detail page.
+  </p>
+
+  <h2>Common drillthrough use cases</h2>
+
+  <ul>
+    <li>Customer details</li>
+    <li>Product details</li>
+    <li>Employee details</li>
+    <li>Store performance</li>
+    <li>Regional analysis</li>
+    <li>Transaction-level details</li>
+  </ul>
+
+  <h2>Common drillthrough problems</h2>
+
+  <h3>1. Drillthrough option does not appear</h3>
+
+  <p>
+    Check that the source visual contains the same field or a compatible field
+    used in the drillthrough filter.
+  </p>
+
+  <h3>2. Detail page shows too much data</h3>
+
+  <p>
+    Check whether the correct drillthrough field is being passed and whether other
+    page filters are interfering.
+  </p>
+
+  <h3>3. Filters are not preserved</h3>
+
+  <p>
+    Check the <strong>Keep all filters</strong> setting.
+  </p>
+
+  <h3>4. User cannot return easily</h3>
+
+  <p>
+    Add a back button to the drillthrough page.
+  </p>
+
+  <h2>When to use drillthrough</h2>
+
+  <p>
+    Drillthrough is especially useful when your dashboard contains summary information,
+    but users sometimes need detailed analysis.
+  </p>
+
+  <p>
+    Instead of overcrowding the main page, you can separate summary and detail views.
+  </p>
+
+  <h2>Quick checklist</h2>
+
+  <ul>
+    <li>Did you create a dedicated detail page?</li>
+    <li>Did you add the correct drillthrough field?</li>
+    <li>Does the source visual contain that field?</li>
+    <li>Should other filters be preserved?</li>
+    <li>Did you add a back button?</li>
+    <li>Does the detail page show the expected filtered data?</li>
+  </ul>
+
+  <div class="cta">
+    <h2>Need help with Power BI drillthrough?</h2>
+
+    <p>
+      If drillthrough, filters or report navigation are not behaving as expected,
+      I offer practical Power BI troubleshooting and data analysis support.
+    </p>
+  </div>
+
+</body>
+</html>
