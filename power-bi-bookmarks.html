@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Power BI Bookmarks Explained | Data with Ingrid</title>
+
+  <meta name="description" content="Learn how Power BI bookmarks work and how to use them for navigation, show and hide panels, interactive reports and custom user experiences.">
+
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      color: #1f2937;
+      line-height: 1.7;
+      background: #ffffff;
+    }
+
+    a {
+      color: #111827;
+    }
+
+    h1, h2, h3 {
+      color: #111827;
+    }
+
+    code {
+      background: #f3f4f6;
+      padding: 3px 6px;
+      border-radius: 4px;
+    }
+
+    pre {
+      background: #f3f4f6;
+      padding: 18px;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+
+    .back {
+      margin-bottom: 30px;
+    }
+
+    .note {
+      background: #f9fafb;
+      border-left: 4px solid #111827;
+      padding: 16px;
+      margin: 25px 0;
+    }
+
+    .cta {
+      margin-top: 50px;
+      padding: 25px;
+      background: #111827;
+      color: white;
+      border-radius: 10px;
+    }
+
+    .cta h2 {
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="back">
+    <a href="index.html">← Back to Data with Ingrid</a>
+  </div>
+
+  <h1>Power BI Bookmarks Explained</h1>
+
+  <p>
+    Bookmarks in Power BI let you save the current state of a report page and return to it later.
+    They are especially useful for navigation, interactive dashboards and show-and-hide effects.
+  </p>
+
+  <h2>What does a bookmark save?</h2>
+
+  <p>
+    A bookmark can capture several parts of the current report state, including:
+  </p>
+
+  <ul>
+    <li>filters</li>
+    <li>slicer selections</li>
+    <li>visual visibility</li>
+    <li>sort order</li>
+    <li>drill position</li>
+    <li>the current report page</li>
+  </ul>
+
+  <p>
+    This means you can create different report views and let the user switch between them.
+  </p>
+
+  <h2>How to create a bookmark</h2>
+
+  <ol>
+    <li>Open the report page you want to save.</li>
+    <li>Set the filters, slicers and visuals exactly as you want them.</li>
+    <li>Open the Bookmarks pane.</li>
+    <li>Select <strong>Add</strong>.</li>
+    <li>Rename the bookmark so its purpose is clear.</li>
+  </ol>
+
+  <p>
+    For example:
+  </p>
+
+  <pre><code>Overview
+Sales View
+Customer View
+Filter Panel Open
+Filter Panel Closed</code></pre>
+
+  <h2>Using bookmarks for navigation</h2>
+
+  <p>
+    You can connect buttons to bookmarks.
+  </p>
+
+  <p>
+    Select a button, enable its action, and choose:
+  </p>
+
+  <pre><code>Action → Bookmark</code></pre>
+
+  <p>
+    Then select the bookmark you want the button to activate.
+  </p>
+
+  <p>
+    This lets you build custom report navigation without relying only on standard page tabs.
+  </p>
+
+  <h2>Show and hide visuals with bookmarks</h2>
+
+  <p>
+    One of the most useful bookmark techniques is showing and hiding groups of visuals.
+  </p>
+
+  <p>
+    For example, you can create a filter panel that appears when the user clicks a button.
+  </p>
+
+  <p>
+    The usual workflow is:
+  </p>
+
+  <ol>
+    <li>Open the Selection pane.</li>
+    <li>Choose which visuals should be visible.</li>
+    <li>Create a bookmark for the visible state.</li>
+    <li>Hide the visuals.</li>
+    <li>Create another bookmark for the hidden state.</li>
+    <li>Connect buttons to the two bookmarks.</li>
+  </ol>
+
+  <div class="note">
+    <strong>Tip:</strong>
+    bookmarks and the Selection pane work very well together when creating menus,
+    pop-ups and custom filter panels.
+  </div>
+
+  <h2>Data, display and current page</h2>
+
+  <p>
+    A bookmark can include different types of information.
+  </p>
+
+  <h3>Data</h3>
+
+  <p>
+    Saves filters, slicers and other data-related state.
+  </p>
+
+  <h3>Display</h3>
+
+  <p>
+    Saves which visuals are visible or hidden.
+  </p>
+
+  <h3>Current page</h3>
+
+  <p>
+    Saves the page associated with the bookmark.
+  </p>
+
+  <p>
+    Depending on what you want the bookmark to do, you may want to include or exclude some of these options.
+  </p>
+
+  <h2>Why slicers sometimes reset</h2>
+
+  <p>
+    A common problem is that clicking a bookmark unexpectedly changes slicer selections.
+  </p>
+
+  <p>
+    This often happens because the bookmark was created with the <strong>Data</strong> option enabled.
+  </p>
+
+  <p>
+    If you want a bookmark to change only visual visibility, try disabling the Data option for that bookmark.
+  </p>
+
+  <h2>Bookmarks for switching views</h2>
+
+  <p>
+    You can also use bookmarks to switch between different visual layouts.
+  </p>
+
+  <p>
+    For example:
+  </p>
+
+  <ul>
+    <li>chart view vs table view</li>
+    <li>monthly view vs yearly view</li>
+    <li>sales view vs customer view</li>
+    <li>summary view vs detailed view</li>
+  </ul>
+
+  <p>
+    Instead of placing every visual on the screen at the same time, bookmarks can make the report cleaner and easier to navigate.
+  </p>
+
+  <h2>Bookmark Navigator</h2>
+
+  <p>
+    Power BI also includes a Bookmark Navigator visual.
+  </p>
+
+  <p>
+    This can automatically create navigation buttons based on your bookmarks and can be useful when you have several saved report states.
+  </p>
+
+  <h2>Common bookmark problems</h2>
+
+  <h3>1. Bookmark changes the wrong filters</h3>
+
+  <p>
+    Check whether the Data option is enabled.
+  </p>
+
+  <h3>2. Visual does not appear or disappear</h3>
+
+  <p>
+    Check the Selection pane and update the bookmark after changing visibility.
+  </p>
+
+  <h3>3. Bookmark does not reflect recent changes</h3>
+
+  <p>
+    Bookmarks do not automatically update every time you edit the report state.
+    Update the bookmark after making changes.
+  </p>
+
+  <h3>4. Button does nothing</h3>
+
+  <p>
+    Check that the button action is enabled and linked to the correct bookmark.
+  </p>
+
+  <h2>Quick checklist</h2>
+
+  <ul>
+    <li>Did you create the bookmark after setting the correct report state?</li>
+    <li>Should the bookmark capture Data?</li>
+    <li>Should it capture Display?</li>
+    <li>Are the correct visuals visible in the Selection pane?</li>
+    <li>Did you update the bookmark after making changes?</li>
+    <li>Is the button linked to the correct bookmark?</li>
+  </ul>
+
+  <div class="cta">
+    <h2>Need help with an interactive Power BI report?</h2>
+
+    <p>
+      If bookmarks, buttons, navigation or visual interactions are not behaving as expected,
+      I offer practical Power BI troubleshooting and data analysis support.
+    </p>
+  </div>
+
+</body>
+</html>
