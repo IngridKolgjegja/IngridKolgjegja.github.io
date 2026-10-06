@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Power BI Slicers Explained | Data with Ingrid</title>
+
+  <meta name="description" content="Learn how Power BI slicers work, how to use them to filter reports, and how to solve common slicer problems.">
+
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      color: #1f2937;
+      line-height: 1.7;
+      background: #ffffff;
+    }
+
+    a {
+      color: #111827;
+    }
+
+    h1, h2, h3 {
+      color: #111827;
+    }
+
+    code {
+      background: #f3f4f6;
+      padding: 3px 6px;
+      border-radius: 4px;
+    }
+
+    pre {
+      background: #f3f4f6;
+      padding: 18px;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+
+    .back {
+      margin-bottom: 30px;
+    }
+
+    .note {
+      background: #f9fafb;
+      border-left: 4px solid #111827;
+      padding: 16px;
+      margin: 25px 0;
+    }
+
+    .cta {
+      margin-top: 50px;
+      padding: 25px;
+      background: #111827;
+      color: white;
+      border-radius: 10px;
+    }
+
+    .cta h2 {
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="back">
+    <a href="index.html">← Back to Data with Ingrid</a>
+  </div>
+
+  <h1>Power BI Slicers Explained</h1>
+
+  <p>
+    Slicers are interactive filters that allow users to control what data is shown
+    in a Power BI report.
+  </p>
+
+  <p>
+    They are especially useful for filtering by date, category, region, customer,
+    product or any other field in your model.
+  </p>
+
+  <h2>What is a slicer?</h2>
+
+  <p>
+    A slicer is a visual that displays values from a column and lets the user select
+    one or more of those values.
+  </p>
+
+  <p>
+    For example, you could create a slicer using:
+  </p>
+
+  <pre><code>Products[Category]</code></pre>
+
+  <p>
+    If the user selects <code>Electronics</code>, the other visuals on the page can
+    update to show only electronics data.
+  </p>
+
+  <h2>How to create a slicer</h2>
+
+  <ol>
+    <li>Add a slicer visual to the report canvas.</li>
+    <li>Drag the field you want to filter by into the slicer.</li>
+    <li>Choose the slicer style you prefer.</li>
+  </ol>
+
+  <p>
+    Common slicer styles include:
+  </p>
+
+  <ul>
+    <li>List</li>
+    <li>Dropdown</li>
+    <li>Tile</li>
+    <li>Date range</li>
+  </ul>
+
+  <h2>Single select vs multiple select</h2>
+
+  <p>
+    You can control whether the user can select one value or multiple values.
+  </p>
+
+  <p>
+    Single select is useful when the report should focus on only one item at a time.
+  </p>
+
+  <p>
+    Multiple select is useful when users need to compare several categories or regions.
+  </p>
+
+  <h2>Date slicers</h2>
+
+  <p>
+    Date slicers are commonly used to filter reports by time.
+  </p>
+
+  <p>
+    Depending on the configuration, users can select:
+  </p>
+
+  <ul>
+    <li>a specific date</li>
+    <li>a date range</li>
+    <li>before or after a date</li>
+    <li>relative periods such as the last 30 days</li>
+  </ul>
+
+  <div class="note">
+    <strong>Tip:</strong>
+    for time-based reporting, use a proper calendar table rather than relying only
+    on date columns from your fact table.
+  </div>
+
+  <h2>Why is my slicer not filtering a visual?</h2>
+
+  <p>
+    If a slicer is not affecting another visual, check visual interactions.
+  </p>
+
+  <p>
+    Select the slicer, then go to:
+  </p>
+
+  <pre><code>Format → Edit interactions</code></pre>
+
+  <p>
+    Make sure the filter interaction is enabled for the visual you want to control.
+  </p>
+
+  <h2>Check relationships</h2>
+
+  <p>
+    A slicer can only filter data correctly when the tables in your model are related properly.
+  </p>
+
+  <p>
+    For example, if your slicer uses:
+  </p>
+
+  <pre><code>Products[Category]</code></pre>
+
+  <p>
+    the Products table needs a valid relationship with the fact table used in your measures.
+  </p>
+
+  <h2>Use dimension fields in slicers</h2>
+
+  <p>
+    In a star schema, it is usually better to use dimension fields in slicers.
+  </p>
+
+  <p>
+    For example:
+  </p>
+
+  <pre><code>DIM_PRODUCT[Category]</code></pre>
+
+  <p>
+    is generally preferable to using a repeated category column directly from a large fact table.
+  </p>
+
+  <h2>Slicer sync across pages</h2>
+
+  <p>
+    Power BI allows slicers to be synchronised across multiple report pages.
+  </p>
+
+  <p>
+    This is useful when you want a selection made on one page to continue filtering
+    other pages in the report.
+  </p>
+
+  <h2>Common slicer problems</h2>
+
+  <h3>1. The slicer does not filter one visual</h3>
+
+  <p>
+    Check visual interactions.
+  </p>
+
+  <h3>2. The slicer shows unexpected values</h3>
+
+  <p>
+    Check the source column, model relationships and whether blank values exist.
+  </p>
+
+  <h3>3. Multiple slicers give confusing results</h3>
+
+  <p>
+    Remember that slicers can filter each other depending on your data model and interactions.
+  </p>
+
+  <h3>4. A measure ignores the slicer</h3>
+
+  <p>
+    Check whether the DAX measure uses functions such as:
+  </p>
+
+  <pre><code>ALL()
+REMOVEFILTERS()</code></pre>
+
+  <p>
+    These functions can remove filter context and make the measure appear unaffected by the slicer.
+  </p>
+
+  <h2>Quick checklist</h2>
+
+  <ul>
+    <li>Is the correct field used in the slicer?</li>
+    <li>Are the tables related correctly?</li>
+    <li>Are visual interactions enabled?</li>
+    <li>Is the slicer set to single or multiple selection as intended?</li>
+    <li>Does your DAX measure remove filters?</li>
+    <li>Are synced slicers affecting other pages?</li>
+  </ul>
+
+  <div class="cta">
+    <h2>Need help with Power BI slicers?</h2>
+
+    <p>
+      If a slicer, filter or report interaction is not behaving as expected,
+      I offer practical Power BI troubleshooting and data analysis support.
+    </p>
+  </div>
+
+</body>
+</html>
