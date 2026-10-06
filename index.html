@@ -1,18 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Data with Ingrid | Power BI & Data Analysis Tutorials</title>
+  <title>Data with Ingrid | Power BI, SQL & Data Analysis Tutorials</title>
 
-  <meta name="description" content="Practical tutorials on Power BI, data analysis, dashboards, DAX, SQL and analytics. Learn how to solve real data problems step by step.">
+  <meta
+    name="description"
+    content="Practical tutorials on Power BI, SQL and data analysis. Learn dashboards, data modeling, business intelligence and analytics step by step."
+  >
 
   <style>
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
@@ -21,6 +30,8 @@
       color: #1f2937;
       line-height: 1.6;
     }
+
+    /* HEADER */
 
     header {
       background: white;
@@ -60,23 +71,37 @@
       color: #111827;
     }
 
+    /* HERO */
+
     .hero {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 100px 24px 80px;
+      padding: 110px 24px 90px;
       text-align: center;
     }
 
+    .hero-label {
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #6b7280;
+      margin-bottom: 20px;
+    }
+
     .hero h1 {
-      font-size: 3.5rem;
+      font-size: 3.6rem;
       line-height: 1.1;
       margin-bottom: 24px;
       color: #111827;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .hero p {
-      max-width: 700px;
-      margin: 0 auto 32px;
+      max-width: 720px;
+      margin: 0 auto 34px;
       font-size: 1.2rem;
       color: #6b7280;
     }
@@ -94,6 +119,7 @@
       border-radius: 8px;
       text-decoration: none;
       font-weight: 600;
+      transition: 0.2s ease;
     }
 
     .btn-primary {
@@ -101,11 +127,21 @@
       color: white;
     }
 
+    .btn-primary:hover {
+      background: #374151;
+    }
+
     .btn-secondary {
       background: white;
       color: #111827;
       border: 1px solid #d1d5db;
     }
+
+    .btn-secondary:hover {
+      background: #f3f4f6;
+    }
+
+    /* SECTIONS */
 
     .section {
       max-width: 1100px;
@@ -117,6 +153,7 @@
       font-size: 2rem;
       margin-bottom: 12px;
       text-align: center;
+      color: #111827;
     }
 
     .section-intro {
@@ -125,6 +162,8 @@
       max-width: 700px;
       margin: 0 auto 40px;
     }
+
+    /* CARDS */
 
     .cards {
       display: grid;
@@ -142,14 +181,14 @@
       height: 100%;
       background: white;
       border: 1px solid #e5e7eb;
-      border-radius: 12px;
+      border-radius: 14px;
       padding: 28px;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
     }
 
     .card h3 {
@@ -161,11 +200,26 @@
       color: #6b7280;
     }
 
+    .tag {
+      display: inline-block;
+      margin-bottom: 15px;
+      padding: 5px 9px;
+      background: #f3f4f6;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #4b5563;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* ABOUT */
+
     .about-box {
       background: #111827;
       color: white;
       border-radius: 16px;
-      padding: 50px;
+      padding: 55px;
       text-align: center;
     }
 
@@ -174,10 +228,12 @@
     }
 
     .about-box p {
-      max-width: 750px;
+      max-width: 760px;
       margin: 15px auto 0;
       color: #d1d5db;
     }
+
+    /* FOOTER */
 
     footer {
       margin-top: 70px;
@@ -188,7 +244,10 @@
       background: white;
     }
 
+    /* MOBILE */
+
     @media (max-width: 800px) {
+
       .hero {
         padding-top: 70px;
       }
@@ -204,179 +263,420 @@
       .nav-links {
         display: none;
       }
+
+      .about-box {
+        padding: 35px 25px;
+      }
     }
+
   </style>
 </head>
 
 <body>
 
+  <!-- HEADER -->
+
   <header>
+
     <div class="nav">
-      <div class="logo">Data with Ingrid</div>
+
+      <div class="logo">
+        Data with Ingrid
+      </div>
 
       <nav class="nav-links">
-        <a href="#tutorials">Tutorials</a>
         <a href="#topics">Topics</a>
+        <a href="#tutorials">Tutorials</a>
         <a href="#about">About</a>
       </nav>
+
     </div>
+
   </header>
+
 
   <main>
 
+    <!-- HERO -->
+
     <section class="hero">
-      <h1>Learn Power BI and Data Analysis Through Practical Tutorials</h1>
+
+      <div class="hero-label">
+        Power BI • SQL • Data Analysis
+      </div>
+
+      <h1>
+        Learn Data Analysis Through Practical Tutorials
+      </h1>
 
       <p>
-        Clear, practical guides for solving real data problems with Power BI,
-        dashboards, DAX and analytics.
+        Clear, practical guides for solving real-world data problems using
+        Power BI, SQL and modern data analysis techniques.
       </p>
 
       <div class="hero-buttons">
-        <a href="#tutorials" class="btn btn-primary">Browse Tutorials</a>
-        <a href="#about" class="btn btn-secondary">About Ingrid</a>
-      </div>
-    </section>
 
-    <section class="section" id="topics">
-      <h2>What You Can Learn</h2>
-
-      <p class="section-intro">
-        Step-by-step guides focused on practical data analysis and business intelligence.
-      </p>
-
-      <div class="cards">
-
-        <div class="card">
-          <h3>Power BI</h3>
-          <p>
-            Dashboards, filters, slicers, data models, KPIs and common Power BI problems.
-          </p>
-        </div>
-
-        <div class="card">
-          <h3>DAX</h3>
-          <p>
-            Practical DAX formulas explained clearly, with examples you can reuse.
-          </p>
-        </div>
-
-        <div class="card">
-          <h3>Data Analysis</h3>
-          <p>
-            Learn how to clean, analyse and interpret data for real business questions.
-          </p>
-        </div>
-
-      </div>
-    </section>
-
-    <section class="section" id="tutorials">
-      <h2>Latest Tutorials</h2>
-
-      <p class="section-intro">
-        Practical Power BI tutorials based on common data analysis problems.
-      </p>
-
-      <div class="cards">
-
-        <a href="power-bi-previous-month.html" class="tutorial-link">
-          <div class="card">
-            <h3>Power BI Previous Month</h3>
-            <p>
-              Learn how to calculate and compare the previous month using DAX.
-            </p>
-          </div>
+        <a href="#tutorials" class="btn btn-primary">
+          Browse Tutorials
         </a>
 
-        <a href="power-bi-dynamic-kpi-card.html" class="tutorial-link">
+        <a href="#about" class="btn btn-secondary">
+          About Ingrid
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- TOPICS -->
+
+    <section class="section" id="topics">
+
+      <h2>
+        What You Can Learn
+      </h2>
+
+      <p class="section-intro">
+        Practical skills for data analysis, business intelligence and analytical problem solving.
+      </p>
+
+      <div class="cards">
+
+        <!-- POWER BI -->
+
+        <a href="#tutorials" class="tutorial-link">
+
           <div class="card">
-            <h3>Dynamic KPI Cards</h3>
+
+            <div class="tag">
+              Power BI
+            </div>
+
+            <h3>
+              Power BI
+            </h3>
+
+            <p>
+              Learn dashboards, filters, slicers, relationships, data models,
+              KPIs, drillthrough, bookmarks and common Power BI problems.
+            </p>
+
+          </div>
+
+        </a>
+
+
+        <!-- SQL -->
+
+        <a href="sql/sql-for-data-analysis.html" class="tutorial-link">
+
+          <div class="card">
+
+            <div class="tag">
+              SQL
+            </div>
+
+            <h3>
+              SQL
+            </h3>
+
+            <p>
+              Learn practical SQL for data analysis, including filtering,
+              joins, aggregations, KPIs and real analyst workflows.
+            </p>
+
+          </div>
+
+        </a>
+
+
+        <!-- DATA ANALYSIS -->
+
+        <div class="card">
+
+          <div class="tag">
+            Analytics
+          </div>
+
+          <h3>
+            Data Analysis
+          </h3>
+
+          <p>
+            Learn how to clean, analyse, validate and interpret data to answer
+            real business and economic questions.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- TUTORIALS -->
+
+    <section class="section" id="tutorials">
+
+      <h2>
+        Latest Tutorials
+      </h2>
+
+      <p class="section-intro">
+        Step-by-step tutorials designed around practical problems analysts encounter in real projects.
+      </p>
+
+
+      <div class="cards">
+
+        <!-- SQL -->
+
+        <a href="sql/sql-for-data-analysis.html" class="tutorial-link">
+
+          <div class="card">
+
+            <div class="tag">
+              SQL
+            </div>
+
+            <h3>
+              SQL for Data Analysis
+            </h3>
+
+            <p>
+              Learn SELECT, WHERE, GROUP BY, joins, KPIs, CASE WHEN,
+              duplicates, NULL values and practical analyst workflows.
+            </p>
+
+          </div>
+
+        </a>
+
+
+        <!-- PREVIOUS MONTH -->
+
+        <a href="power-bi/previous-month.html" class="tutorial-link">
+
+          <div class="card">
+
+            <div class="tag">
+              Power BI
+            </div>
+
+            <h3>
+              Power BI Previous Month
+            </h3>
+
+            <p>
+              Learn how to calculate and compare the previous month in Power BI.
+            </p>
+
+          </div>
+
+        </a>
+
+
+        <!-- KPI -->
+
+        <a href="power-bi/dynamic-kpi-card.html" class="tutorial-link">
+
+          <div class="card">
+
+            <div class="tag">
+              Power BI
+            </div>
+
+            <h3>
+              Dynamic KPI Cards
+            </h3>
+
             <p>
               Create KPI cards that respond dynamically to filters and user selections.
             </p>
+
           </div>
+
         </a>
 
-        <a href="power-bi-filters-not-working.html" class="tutorial-link">
+
+        <!-- FILTERS -->
+
+        <a href="power-bi/filters-not-working.html" class="tutorial-link">
+
           <div class="card">
-            <h3>Power BI Filters Explained</h3>
+
+            <div class="tag">
+              Power BI
+            </div>
+
+            <h3>
+              Power BI Filters Explained
+            </h3>
+
             <p>
-              Understand why filters sometimes do not work and how to fix them.
+              Understand why filters sometimes do not work and how to troubleshoot them.
             </p>
+
           </div>
+
         </a>
 
-        <a href="power-bi-selectedvalue.html" class="tutorial-link">
+
+        <!-- SELECTEDVALUE -->
+
+        <a href="power-bi/selectedvalue.html" class="tutorial-link">
+
           <div class="card">
-            <h3>Power BI SELECTEDVALUE</h3>
+
+            <div class="tag">
+              Power BI
+            </div>
+
+            <h3>
+              Power BI SELECTEDVALUE
+            </h3>
+
             <p>
-              Learn how SELECTEDVALUE works and how to use it for dynamic labels, cards and slicers.
+              Learn how SELECTEDVALUE works for dynamic labels, cards and slicers.
             </p>
+
           </div>
+
         </a>
 
-        <a href="power-bi-relationships.html" class="tutorial-link">
-  <div class="card">
-    <h3>Power BI Relationships</h3>
-    <p>
-      Understand one-to-many relationships, active and inactive relationships,
-      cross-filter direction and common modeling problems.
-    </p>
-  </div>
-</a>
+
+        <!-- RELATIONSHIPS -->
+
+        <a href="power-bi/relationships.html" class="tutorial-link">
+
+          <div class="card">
+
+            <div class="tag">
+              Power BI
+            </div>
+
+            <h3>
+              Power BI Relationships
+            </h3>
+
+            <p>
+              Understand one-to-many relationships, active relationships,
+              filter direction and common modeling problems.
+            </p>
+
+          </div>
+
+        </a>
 
 
-<a href="power-bi-star-schema.html" class="tutorial-link">
-  <div class="card">
-    <h3>Power BI Star Schema</h3>
-    <p>
-      Learn how fact tables, dimension tables and one-to-many relationships work in a clean Power BI model.
-    </p>
-  </div>
-</a>
+        <!-- STAR SCHEMA -->
 
-<a href="power-bi-slicers.html" class="tutorial-link">
-  <div class="card">
-    <h3>Power BI Slicers</h3>
-    <p>
-      Learn how slicers work, how to filter reports and how to fix common slicer problems.
-    </p>
-  </div>
-</a>
+        <a href="power-bi/star-schema.html" class="tutorial-link">
 
+          <div class="card">
 
-<a href="power-bi-bookmarks.html" class="tutorial-link">
-  <div class="card">
-    <h3>Power BI Bookmarks</h3>
-    <p>
-      Learn how to use bookmarks for navigation, show and hide panels, and create interactive report experiences.
-    </p>
-  </div>
-</a>
+            <div class="tag">
+              Power BI
+            </div>
 
-      <a href="power-bi-drillthrough.html" class="tutorial-link">
-  <div class="card">
-    <h3>Power BI Drillthrough</h3>
-    <p>
-      Learn how to create detail pages that open filtered by customer, product, region or other dimensions.
-    </p>
-  </div>
-</a>  
+            <h3>
+              Power BI Star Schema
+            </h3>
+
+            <p>
+              Learn how fact tables, dimension tables and relationships work
+              in a clean analytical data model.
+            </p>
+
+          </div>
+
+        </a>
 
 
+        <!-- SLICERS -->
+
+        <a href="power-bi/slicers.html" class="tutorial-link">
+
+          <div class="card">
+
+            <div class="tag">
+              Power BI
+            </div>
+
+            <h3>
+              Power BI Slicers
+            </h3>
+
+            <p>
+              Learn how slicers filter reports and how to fix common slicer problems.
+            </p>
+
+          </div>
+
+        </a>
 
 
+        <!-- BOOKMARKS -->
+
+        <a href="power-bi/bookmarks.html" class="tutorial-link">
+
+          <div class="card">
+
+            <div class="tag">
+              Power BI
+            </div>
+
+            <h3>
+              Power BI Bookmarks
+            </h3>
+
+            <p>
+              Use bookmarks for navigation, interactive panels and custom report experiences.
+            </p>
+
+          </div>
+
+        </a>
 
 
-        
-        
+        <!-- DRILLTHROUGH -->
+
+        <a href="power-bi/drillthrough.html" class="tutorial-link">
+
+          <div class="card">
+
+            <div class="tag">
+              Power BI
+            </div>
+
+            <h3>
+              Power BI Drillthrough
+            </h3>
+
+            <p>
+              Create detail pages filtered automatically by customer,
+              product, region or other dimensions.
+            </p>
+
+          </div>
+
+        </a>
+
       </div>
+
     </section>
 
+
+    <!-- ABOUT -->
+
     <section class="section" id="about">
+
       <div class="about-box">
-        <h2>About Ingrid</h2>
+
+        <h2>
+          About Ingrid
+        </h2>
 
         <p>
           I'm an economist and data scientist currently working at UNCTAD in Geneva,
@@ -386,14 +686,18 @@
           Through Data with Ingrid, I share practical tutorials based on real analytical
           problems and make data tools easier to understand and use.
         </p>
+
       </div>
+
     </section>
 
   </main>
+
 
   <footer>
     © 2026 Data with Ingrid
   </footer>
 
 </body>
+
 </html>
