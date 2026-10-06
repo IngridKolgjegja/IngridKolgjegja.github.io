@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Why Power BI Filters Are Not Working | Data with Ingrid</title>
+
+  <meta name="description" content="Power BI filters not working? Learn the most common causes, including visual interactions, relationships, filter context and slicers, with practical fixes.">
+
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      color: #1f2937;
+      line-height: 1.7;
+      background: #ffffff;
+    }
+
+    a {
+      color: #111827;
+    }
+
+    h1, h2, h3 {
+      color: #111827;
+    }
+
+    code {
+      background: #f3f4f6;
+      padding: 3px 6px;
+      border-radius: 4px;
+    }
+
+    pre {
+      background: #f3f4f6;
+      padding: 18px;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+
+    .back {
+      margin-bottom: 30px;
+    }
+
+    .note {
+      background: #f9fafb;
+      border-left: 4px solid #111827;
+      padding: 16px;
+      margin: 25px 0;
+    }
+
+    .cta {
+      margin-top: 50px;
+      padding: 25px;
+      background: #111827;
+      color: white;
+      border-radius: 10px;
+    }
+
+    .cta h2 {
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="back">
+    <a href="index.html">← Back to Data with Ingrid</a>
+  </div>
+
+  <h1>Why Power BI Filters Are Not Working</h1>
+
+  <p>
+    If a slicer, chart or filter is not affecting another visual in Power BI,
+    the problem is usually related to visual interactions, relationships
+    between tables or the filter context used by your measure.
+  </p>
+
+  <h2>1. Check visual interactions</h2>
+
+  <p>
+    Power BI lets you control whether one visual filters, highlights or ignores another visual.
+  </p>
+
+  <p>
+    Select the visual you want to use as the filter, then go to:
+  </p>
+
+  <pre><code>Format → Edit interactions</code></pre>
+
+  <p>
+    Power BI will display interaction icons above the other visuals.
+    Make sure the filter icon is selected for the visual you want to filter.
+  </p>
+
+  <div class="note">
+    <strong>Common issue:</strong>
+    if the interaction is set to "None", clicking a bar or slicer will not affect that visual.
+  </div>
+
+  <h2>2. Check the relationships between your tables</h2>
+
+  <p>
+    If the field used in your filter comes from a different table,
+    Power BI needs a valid relationship between the tables.
+  </p>
+
+  <p>
+    Open the Model view and check:
+  </p>
+
+  <ul>
+    <li>whether the tables are connected</li>
+    <li>whether the relationship is active</li>
+    <li>the relationship cardinality</li>
+    <li>the cross-filter direction</li>
+  </ul>
+
+  <p>
+    A missing or incorrect relationship is one of the most common reasons
+    filters do not behave as expected.
+  </p>
+
+  <h2>3. Check which column your visual uses</h2>
+
+  <p>
+    Sometimes two columns look similar but come from different tables.
+    For example:
+  </p>
+
+  <pre><code>DIM_PRODUCT[Category]</code></pre>
+
+  <p>and</p>
+
+  <pre><code>FACT_SALES[Category]</code></pre>
+
+  <p>
+    may contain similar values, but they do not necessarily behave the same way in the model.
+  </p>
+
+  <p>
+    In most star-schema models, dimensions should be used for slicers and categories,
+    while measures are calculated from the fact table.
+  </p>
+
+  <h2>4. Check whether your DAX measure removes filters</h2>
+
+  <p>
+    A measure can deliberately ignore filters.
+    For example:
+  </p>
+
+  <pre><code>Total Sales All Products =
+CALCULATE(
+    [Total Sales],
+    ALL(Products)
+)</code></pre>
+
+  <p>
+    The <code>ALL</code> function removes filters from the Products table.
+    This means a product slicer may appear to have no effect on this measure.
+  </p>
+
+  <h2>5. Check page-level and report-level filters</h2>
+
+  <p>
+    Sometimes the problem is not the visual itself.
+    Open the Filters pane and check:
+  </p>
+
+  <ul>
+    <li>Filters on this visual</li>
+    <li>Filters on this page</li>
+    <li>Filters on all pages</li>
+  </ul>
+
+  <p>
+    Another filter may already be restricting the data shown in the visual.
+  </p>
+
+  <h2>6. Test the filter with a simple table</h2>
+
+  <p>
+    If you are not sure where the problem is, create a temporary table visual.
+  </p>
+
+  <p>
+    Add:
+  </p>
+
+  <ul>
+    <li>the field you are filtering by</li>
+    <li>the measure you are testing</li>
+  </ul>
+
+  <p>
+    Then interact with your slicer or chart.
+    This helps you determine whether the issue is in the data model,
+    the measure or the visual interaction.
+  </p>
+
+  <h2>Quick checklist</h2>
+
+  <ul>
+    <li>Is the visual interaction enabled?</li>
+    <li>Are the tables related?</li>
+    <li>Is the relationship active?</li>
+    <li>Are you using the correct dimension column?</li>
+    <li>Does the DAX measure use ALL or REMOVEFILTERS?</li>
+    <li>Are other page or report filters active?</li>
+  </ul>
+
+  <div class="cta">
+    <h2>Need help with a Power BI filter?</h2>
+
+    <p>
+      If a slicer, chart, relationship or DAX measure is not behaving as expected,
+      I offer practical Power BI troubleshooting and data analysis support.
+    </p>
+  </div>
+
+</body>
+</html>
