@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>How to Calculate Previous Month in Power BI | Data with Ingrid</title>
+
+  <meta name="description" content="Learn how to calculate the previous month in Power BI using DAX, with a practical example and clear explanation.">
+
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      color: #1f2937;
+      line-height: 1.7;
+      background: #ffffff;
+    }
+
+    a {
+      color: #111827;
+    }
+
+    h1, h2, h3 {
+      color: #111827;
+    }
+
+    code {
+      background: #f3f4f6;
+      padding: 3px 6px;
+      border-radius: 4px;
+    }
+
+    pre {
+      background: #f3f4f6;
+      padding: 18px;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+
+    .back {
+      margin-bottom: 30px;
+    }
+
+    .note {
+      background: #f9fafb;
+      border-left: 4px solid #111827;
+      padding: 16px;
+      margin: 25px 0;
+    }
+
+    .cta {
+      margin-top: 50px;
+      padding: 25px;
+      background: #111827;
+      color: white;
+      border-radius: 10px;
+    }
+
+    .cta h2 {
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="back">
+    <a href="index.html">← Back to Data with Ingrid</a>
+  </div>
+
+  <h1>How to Calculate Previous Month in Power BI</h1>
+
+  <p>
+    Comparing the current period with the previous month is one of the most common tasks in Power BI.
+    In this tutorial, you'll learn a simple way to calculate the previous month's value using DAX.
+  </p>
+
+  <h2>Example scenario</h2>
+
+  <p>
+    Imagine you have a sales table and a calendar table. You already have a measure for total sales:
+  </p>
+
+  <pre><code>Total Sales =
+SUM(Sales[Amount])</code></pre>
+
+  <p>
+    Now you want to calculate the same value for the previous month.
+  </p>
+
+  <h2>Previous month measure</h2>
+
+  <pre><code>Previous Month Sales =
+CALCULATE(
+    [Total Sales],
+    DATEADD(
+        Calendar[Date],
+        -1,
+        MONTH
+    )
+)</code></pre>
+
+  <h2>How it works</h2>
+
+  <p>
+    The <code>CALCULATE</code> function changes the filter context of the measure.
+  </p>
+
+  <p>
+    <code>DATEADD</code> shifts the current date context back by one month.
+    This means Power BI evaluates <code>[Total Sales]</code> for the previous month instead of the current one.
+  </p>
+
+  <div class="note">
+    <strong>Important:</strong>
+    your calendar table should contain a continuous date column and should be correctly related to your fact table.
+  </div>
+
+  <h2>Calculate the difference</h2>
+
+  <p>
+    You can also calculate the difference between the current month and the previous month:
+  </p>
+
+  <pre><code>Month Difference =
+[Total Sales] - [Previous Month Sales]</code></pre>
+
+  <h2>Calculate percentage change</h2>
+
+  <pre><code>Month Change % =
+DIVIDE(
+    [Total Sales] - [Previous Month Sales],
+    [Previous Month Sales]
+)</code></pre>
+
+  <p>
+    This is useful for KPI cards and performance dashboards.
+  </p>
+
+  <h2>Common problem</h2>
+
+  <p>
+    If the measure returns blank or unexpected values, check that:
+  </p>
+
+  <ul>
+    <li>your calendar table is connected correctly</li>
+    <li>the date column contains continuous dates</li>
+    <li>you are using the calendar table in your visual</li>
+  </ul>
+
+  <div class="cta">
+    <h2>Need help with Power BI?</h2>
+
+    <p>
+      If you're stuck with a DAX measure, filter, dashboard or data model,
+      I offer practical Power BI troubleshooting and data analysis support.
+    </p>
+  </div>
+
+</body>
+</html>
