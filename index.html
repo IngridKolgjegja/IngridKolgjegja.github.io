@@ -3,20 +3,305 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Data with Ingrid</title>
+
+  <title>Data with Ingrid | Power BI & Data Analysis Tutorials</title>
+
+  <meta name="description" content="Practical tutorials on Power BI, data analysis, dashboards, DAX, SQL and analytics. Learn how to solve real data problems step by step.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f7f9fc;
+      color: #1f2937;
+      line-height: 1.6;
+    }
+
+    header {
+      background: white;
+      border-bottom: 1px solid #e5e7eb;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #4b5563;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover {
+      color: #111827;
+    }
+
+    .hero {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 100px 24px 80px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      color: #111827;
+    }
+
+    .hero p {
+      max-width: 700px;
+      margin: 0 auto 32px;
+      font-size: 1.2rem;
+      color: #6b7280;
+    }
+
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 13px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .btn-primary {
+      background: #111827;
+      color: white;
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #111827;
+      border: 1px solid #d1d5db;
+    }
+
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 70px 24px;
+    }
+
+    .section h2 {
+      font-size: 2rem;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .section-intro {
+      text-align: center;
+      color: #6b7280;
+      max-width: 700px;
+      margin: 0 auto 40px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 28px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      color: #111827;
+    }
+
+    .card p {
+      color: #6b7280;
+    }
+
+    .about-box {
+      background: #111827;
+      color: white;
+      border-radius: 16px;
+      padding: 50px;
+      text-align: center;
+    }
+
+    .about-box p {
+      max-width: 750px;
+      margin: 15px auto 0;
+      color: #d1d5db;
+    }
+
+    footer {
+      margin-top: 70px;
+      padding: 30px 24px;
+      text-align: center;
+      color: #6b7280;
+      border-top: 1px solid #e5e7eb;
+      background: white;
+    }
+
+    @media (max-width: 800px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-  <h1>Data with Ingrid</h1>
+  <header>
+    <div class="nav">
+      <div class="logo">Data with Ingrid</div>
 
-  <p>
-    Practical tutorials on Power BI and Data Analysis.
-  </p>
+      <nav class="nav-links">
+        <a href="#tutorials">Tutorials</a>
+        <a href="#topics">Topics</a>
+        <a href="#about">About</a>
+      </nav>
+    </div>
+  </header>
 
-  <h2>Latest Tutorials</h2>
+  <main>
 
-  <p>Coming soon.</p>
+    <section class="hero">
+      <h1>Learn Power BI and Data Analysis Through Practical Tutorials</h1>
+
+      <p>
+        Clear, practical guides for solving real data problems with Power BI,
+        dashboards, DAX and analytics.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="#tutorials" class="btn btn-primary">Browse Tutorials</a>
+        <a href="#about" class="btn btn-secondary">About Ingrid</a>
+      </div>
+    </section>
+
+    <section class="section" id="topics">
+      <h2>What You Can Learn</h2>
+
+      <p class="section-intro">
+        Step-by-step guides focused on practical data analysis and business intelligence.
+      </p>
+
+      <div class="cards">
+        <div class="card">
+          <h3>Power BI</h3>
+          <p>
+            Dashboards, filters, slicers, data models, KPIs and common Power BI problems.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>DAX</h3>
+          <p>
+            Practical DAX formulas explained clearly, with examples you can reuse.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Data Analysis</h3>
+          <p>
+            Learn how to clean, analyse and interpret data for real business questions.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="tutorials">
+      <h2>Latest Tutorials</h2>
+
+      <p class="section-intro">
+        New tutorials will be published regularly.
+      </p>
+
+      <div class="cards">
+        <div class="card">
+          <h3>Power BI Previous Month</h3>
+          <p>
+            Learn how to calculate and compare the previous month using DAX.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Dynamic KPI Cards</h3>
+          <p>
+            Create KPI cards that respond dynamically to filters and user selections.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Power BI Filters Explained</h3>
+          <p>
+            Understand why filters sometimes do not work and how to fix them.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="about-box">
+        <h2>About Ingrid</h2>
+
+        <p>
+          I work across economics, statistics, data analysis and business intelligence.
+          Data with Ingrid is where I share practical tutorials based on real analytical
+          problems, with a focus on making data tools easier to understand and use.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    © 2026 Data with Ingrid
+  </footer>
 
 </body>
 </html>
