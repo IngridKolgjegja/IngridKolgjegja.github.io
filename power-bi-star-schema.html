@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Power BI Star Schema Explained | Data with Ingrid</title>
+
+  <meta name="description" content="Learn what a star schema is in Power BI, how fact and dimension tables work, and why this model structure improves filtering, performance and DAX.">
+
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      color: #1f2937;
+      line-height: 1.7;
+      background: #ffffff;
+    }
+
+    a {
+      color: #111827;
+    }
+
+    h1, h2, h3 {
+      color: #111827;
+    }
+
+    code {
+      background: #f3f4f6;
+      padding: 3px 6px;
+      border-radius: 4px;
+    }
+
+    pre {
+      background: #f3f4f6;
+      padding: 18px;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+
+    .back {
+      margin-bottom: 30px;
+    }
+
+    .note {
+      background: #f9fafb;
+      border-left: 4px solid #111827;
+      padding: 16px;
+      margin: 25px 0;
+    }
+
+    .cta {
+      margin-top: 50px;
+      padding: 25px;
+      background: #111827;
+      color: white;
+      border-radius: 10px;
+    }
+
+    .cta h2 {
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="back">
+    <a href="index.html">← Back to Data with Ingrid</a>
+  </div>
+
+  <h1>Power BI Star Schema Explained</h1>
+
+  <p>
+    A star schema is one of the most common and useful ways to organise data in Power BI.
+    It helps keep your model easier to understand, easier to filter and often easier to maintain.
+  </p>
+
+  <h2>What is a star schema?</h2>
+
+  <p>
+    A star schema usually has one central fact table connected to several dimension tables.
+  </p>
+
+  <pre><code>         Customers
+             |
+             |
+Products — Sales — Calendar
+             |
+             |
+          Regions</code></pre>
+
+  <p>
+    The fact table sits in the centre, while dimension tables surround it.
+  </p>
+
+  <h2>What is a fact table?</h2>
+
+  <p>
+    A fact table contains the events or transactions you want to analyse.
+  </p>
+
+  <p>
+    For example, a sales fact table could contain:
+  </p>
+
+  <ul>
+    <li>Order ID</li>
+    <li>Date ID</li>
+    <li>Product ID</li>
+    <li>Customer ID</li>
+    <li>Quantity</li>
+    <li>Sales Amount</li>
+  </ul>
+
+  <p>
+    A fact table usually contains many rows.
+  </p>
+
+  <h2>What is a dimension table?</h2>
+
+  <p>
+    A dimension table contains descriptive information used to filter or group the fact table.
+  </p>
+
+  <p>
+    Examples include:
+  </p>
+
+  <ul>
+    <li>Products</li>
+    <li>Customers</li>
+    <li>Calendar</li>
+    <li>Regions</li>
+    <li>Stores</li>
+  </ul>
+
+  <p>
+    A product dimension might contain:
+  </p>
+
+  <pre><code>ProductID
+ProductName
+Category
+Brand</code></pre>
+
+  <h2>How fact and dimension tables connect</h2>
+
+  <p>
+    Dimension tables normally connect to the fact table using one-to-many relationships.
+  </p>
+
+  <pre><code>Products[ProductID]  1 → *  Sales[ProductID]</code></pre>
+
+  <p>
+    Each product appears once in the Products table, but it can appear many times in the Sales table.
+  </p>
+
+  <h2>Why use a star schema?</h2>
+
+  <h3>1. Easier filtering</h3>
+
+  <p>
+    Dimension tables can filter the fact table in a predictable way.
+  </p>
+
+  <p>
+    For example, a slicer using:
+  </p>
+
+  <pre><code>Products[Category]</code></pre>
+
+  <p>
+    can filter sales by category.
+  </p>
+
+  <h3>2. Cleaner DAX</h3>
+
+  <p>
+    Measures are usually easier to write when your model follows a clear structure.
+  </p>
+
+  <h3>3. Easier maintenance</h3>
+
+  <p>
+    A well-structured model is easier to understand when you return to it later or when another person needs to work with it.
+  </p>
+
+  <h3>4. Better report design</h3>
+
+  <p>
+    You can use dimension fields for slicers and categories while keeping numeric calculations in the fact table.
+  </p>
+
+  <div class="note">
+    <strong>Useful rule:</strong>
+    use dimensions to describe and filter your data, and fact tables to store the events and values you want to measure.
+  </div>
+
+  <h2>Example model</h2>
+
+  <p>
+    Imagine a retail report.
+  </p>
+
+  <p>
+    Your central table could be:
+  </p>
+
+  <pre><code>FACT_SALES</code></pre>
+
+  <p>
+    connected to:
+  </p>
+
+  <pre><code>DIM_PRODUCT
+DIM_CUSTOMER
+DIM_DATE
+DIM_STORE</code></pre>
+
+  <p>
+    This allows you to analyse total sales by:
+  </p>
+
+  <ul>
+    <li>product</li>
+    <li>customer</li>
+    <li>month</li>
+    <li>store</li>
+  </ul>
+
+  <h2>Common mistake: one large flat table</h2>
+
+  <p>
+    Beginners often import one large table containing every field.
+  </p>
+
+  <p>
+    For example:
+  </p>
+
+  <pre><code>Date
+Customer
+Customer Country
+Product
+Product Category
+Store
+Sales Amount</code></pre>
+
+  <p>
+    This may work for small reports, but as the model becomes more complex it can be harder to manage.
+  </p>
+
+  <p>
+    Separating descriptive fields into dimensions usually gives the model a clearer structure.
+  </p>
+
+  <h2>Common mistake: dimension-to-dimension chains</h2>
+
+  <p>
+    A clean star schema usually connects dimensions directly to the fact table rather than creating long chains of tables.
+  </p>
+
+  <p>
+    Simpler relationship paths are generally easier to understand and troubleshoot.
+  </p>
+
+  <h2>Star schema vs snowflake schema</h2>
+
+  <p>
+    In a star schema, dimension tables connect directly to the fact table.
+  </p>
+
+  <p>
+    In a snowflake schema, dimensions may be split into additional related tables.
+  </p>
+
+  <p>
+    Power BI can work with both structures, but a simpler star schema is often easier to use for reporting.
+  </p>
+
+  <h2>Quick checklist</h2>
+
+  <ul>
+    <li>Do you have a clear central fact table?</li>
+    <li>Are descriptive fields stored in dimension tables?</li>
+    <li>Do dimensions contain unique keys?</li>
+    <li>Are relationships mostly one-to-many?</li>
+    <li>Are slicers using dimension fields?</li>
+    <li>Is the model easy to understand visually?</li>
+  </ul>
+
+  <div class="cta">
+    <h2>Need help structuring a Power BI model?</h2>
+
+    <p>
+      If your model has confusing relationships, duplicate fields or filtering problems,
+      I offer practical Power BI troubleshooting and data analysis support.
+    </p>
+  </div>
+
+</body>
+</html>
