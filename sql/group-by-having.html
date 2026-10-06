@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>SQL GROUP BY and HAVING Explained | Data with Ingrid</title>
+
+  <meta name="description" content="Learn how GROUP BY and HAVING work in SQL, with practical examples for data analysis, KPIs, revenue analysis and business reporting.">
+
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      color: #1f2937;
+      line-height: 1.7;
+      background: #ffffff;
+    }
+
+    a {
+      color: #111827;
+    }
+
+    h1, h2, h3 {
+      color: #111827;
+    }
+
+    code {
+      background: #f3f4f6;
+      padding: 3px 6px;
+      border-radius: 4px;
+    }
+
+    pre {
+      background: #f3f4f6;
+      padding: 18px;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+
+    .back {
+      margin-bottom: 30px;
+    }
+
+    .note {
+      background: #f9fafb;
+      border-left: 4px solid #111827;
+      padding: 16px;
+      margin: 25px 0;
+    }
+
+    .cta {
+      margin-top: 50px;
+      padding: 25px;
+      background: #111827;
+      color: white;
+      border-radius: 10px;
+    }
+
+    .cta h2 {
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="back">
+    <a href="../index.html">← Back to Data with Ingrid</a>
+  </div>
+
+  <h1>SQL GROUP BY and HAVING Explained</h1>
+
+  <p>
+    GROUP BY is one of the most important SQL tools for data analysis because it lets
+    you summarise rows into meaningful groups.
+  </p>
+
+  <p>
+    Analysts use GROUP BY to answer questions such as:
+  </p>
+
+  <ul>
+    <li>What is total revenue by country?</li>
+    <li>How many customers are in each region?</li>
+    <li>What is average order value by product category?</li>
+    <li>Which markets generated more than €100,000 in sales?</li>
+  </ul>
+
+  <h2>Basic GROUP BY syntax</h2>
+
+  <p>
+    Imagine you have a sales table:
+  </p>
+
+  <pre><code>sale_id | country | amount
+1       | Italy   | 500
+2       | Italy   | 300
+3       | France  | 700
+4       | Spain   | 400</code></pre>
+
+  <p>
+    To calculate total sales by country:
+  </p>
+
+  <pre><code>SELECT
+    country,
+    SUM(amount) AS total_sales
+FROM sales
+GROUP BY country;</code></pre>
+
+  <p>
+    The result would look like:
+  </p>
+
+  <pre><code>country | total_sales
+Italy   | 800
+France  | 700
+Spain   | 400</code></pre>
+
+  <h2>GROUP BY with COUNT</h2>
+
+  <p>
+    You can count rows within each group.
+  </p>
+
+  <pre><code>SELECT
+    country,
+    COUNT(*) AS number_of_sales
+FROM sales
+GROUP BY country;</code></pre>
+
+  <h2>COUNT DISTINCT</h2>
+
+  <p>
+    In data analysis, you often need the number of unique customers rather than the
+    total number of rows.
+  </p>
+
+  <pre><code>SELECT
+    country,
+    COUNT(DISTINCT customer_id) AS unique_customers
+FROM sales
+GROUP BY country;</code></pre>
+
+  <h2>GROUP BY with multiple columns</h2>
+
+  <p>
+    You can group by more than one field.
+  </p>
+
+  <p>
+    For example, revenue by country and product category:
+  </p>
+
+  <pre><code>SELECT
+    country,
+    product_category,
+    SUM(amount) AS total_sales
+FROM sales
+GROUP BY
+    country,
+    product_category;</code></pre>
+
+  <p>
+    SQL creates one group for each unique combination of country and product category.
+  </p>
+
+  <h2>Using AVG, MIN and MAX</h2>
+
+  <p>
+    GROUP BY works with all common aggregation functions.
+  </p>
+
+  <pre><code>SELECT
+    country,
+    AVG(amount) AS average_sale,
+    MIN(amount) AS smallest_sale,
+    MAX(amount) AS largest_sale
+FROM sales
+GROUP BY country;</code></pre>
+
+  <h2>What is HAVING?</h2>
+
+  <p>
+    HAVING filters grouped results.
+  </p>
+
+  <p>
+    For example, suppose you only want countries with more than €1,000 in total sales.
+  </p>
+
+  <pre><code>SELECT
+    country,
+    SUM(amount) AS total_sales
+FROM sales
+GROUP BY country
+HAVING SUM(amount) > 1000;</code></pre>
+
+  <div class="note">
+    <strong>Key difference:</strong>
+    WHERE filters individual rows before aggregation.
+    HAVING filters grouped results after aggregation.
+  </div>
+
+  <h2>WHERE vs HAVING</h2>
+
+  <p>
+    Consider this query:
+  </p>
+
+  <pre><code>SELECT
+    country,
+    SUM(amount) AS total_sales
+FROM sales
+WHERE sale_date >= '2026-01-01'
+GROUP BY country
+HAVING SUM(amount) > 100000;</code></pre>
+
+  <p>
+    SQL first applies:
+  </p>
+
+  <pre><code>WHERE sale_date >= '2026-01-01'</code></pre>
+
+  <p>
+    Then it groups the remaining rows by country.
+  </p>
+
+  <p>
+    Finally it applies:
+  </p>
+
+  <pre><code>HAVING SUM(amount) > 100000</code></pre>
+
+  <h2>Practical example: high-value customers</h2>
+
+  <p>
+    Suppose you want to find customers who generated more than €5,000 in revenue.
+  </p>
+
+  <pre><code>SELECT
+    customer_id,
+    SUM(amount) AS total_revenue
+FROM sales
+GROUP BY customer_id
+HAVING SUM(amount) > 5000
+ORDER BY total_revenue DESC;</code></pre>
+
+  <h2>Practical example: customers with multiple orders</h2>
+
+  <p>
+    To find customers who placed more than five orders:
+  </p>
+
+  <pre><code>SELECT
+    customer_id,
+    COUNT(DISTINCT order_id) AS number_of_orders
+FROM sales
+GROUP BY customer_id
+HAVING COUNT(DISTINCT order_id) > 5;</code></pre>
+
+  <h2>Practical example: average sales by region</h2>
+
+  <pre><code>SELECT
+    region,
+    AVG(amount) AS average_sale
+FROM sales
+GROUP BY region
+ORDER BY average_sale DESC;</code></pre>
+
+  <h2>Joining and grouping</h2>
+
+  <p>
+    In real analysis, GROUP BY is often used after a JOIN.
+  </p>
+
+  <p>
+    Example: revenue by customer country.
+  </p>
+
+  <pre><code>SELECT
+    c.country,
+    SUM(o.amount) AS total_revenue
+FROM orders o
+LEFT JOIN customers c
+    ON o.customer_id = c.customer_id
+GROUP BY c.country
+ORDER BY total_revenue DESC;</code></pre>
+
+  <h2>Grouping by month</h2>
+
+  <p>
+    Analysts frequently aggregate data by time period.
+  </p>
+
+  <p>
+    The exact date syntax depends on the SQL database, but conceptually you might do:
+  </p>
+
+  <pre><code>SELECT
+    YEAR(order_date) AS year,
+    MONTH(order_date) AS month,
+    SUM(amount) AS monthly_revenue
+FROM orders
+GROUP BY
+    YEAR(order_date),
+    MONTH(order_date)
+ORDER BY
+    year,
+    month;</code></pre>
+
+  <h2>Common mistake: selecting columns that are not grouped</h2>
+
+  <p>
+    Consider:
+  </p>
+
+  <pre><code>SELECT
+    country,
+    customer_name,
+    SUM(amount)
+FROM sales
+GROUP BY country;</code></pre>
+
+  <p>
+    This is usually invalid because <code>customer_name</code> is neither aggregated nor
+    included in the GROUP BY.
+  </p>
+
+  <p>
+    A safer structure would be:
+  </p>
+
+  <pre><code>SELECT
+    country,
+    customer_name,
+    SUM(amount)
+FROM sales
+GROUP BY
+    country,
+    customer_name;</code></pre>
+
+  <h2>Common mistake: using WHERE with aggregate functions</h2>
+
+  <p>
+    This is incorrect:
+  </p>
+
+  <pre><code>SELECT
+    country,
+    SUM(amount)
+FROM sales
+WHERE SUM(amount) > 1000
+GROUP BY country;</code></pre>
+
+  <p>
+    Use HAVING instead:
+  </p>
+
+  <pre><code>SELECT
+    country,
+    SUM(amount)
+FROM sales
+GROUP BY country
+HAVING SUM(amount) > 1000;</code></pre>
+
+  <h2>GROUP BY for dashboard KPIs</h2>
+
+  <p>
+    GROUP BY is especially useful when preparing datasets for Power BI or other reporting tools.
+  </p>
+
+  <p>
+    For example:
+  </p>
+
+  <pre><code>SELECT
+    country,
+    COUNT(DISTINCT customer_id) AS customers,
+    COUNT(DISTINCT order_id) AS orders,
+    SUM(amount) AS revenue,
+    AVG(amount) AS average_sale
+FROM sales
+GROUP BY country;</code></pre>
+
+  <p>
+    This produces a compact analytical table containing several KPIs by country.
+  </p>
+
+  <h2>Quick checklist</h2>
+
+  <ul>
+    <li>What dimension do you want to group by?</li>
+    <li>What metric do you want to calculate?</li>
+    <li>Should you use SUM, COUNT, AVG, MIN or MAX?</li>
+    <li>Do you need WHERE to filter rows first?</li>
+    <li>Do you need HAVING to filter aggregated results?</li>
+    <li>Are all non-aggregated columns included in GROUP BY?</li>
+  </ul>
+
+  <div class="cta">
+    <h2>Need help with SQL analysis?</h2>
+
+    <p>
+      If you are working with SQL queries, business KPIs, Power BI or analytical datasets,
+      I offer practical data analysis and business intelligence support.
+    </p>
+  </div>
+
+</body>
+</html>
