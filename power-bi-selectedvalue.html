@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Power BI SELECTEDVALUE Explained | Data with Ingrid</title>
+
+  <meta name="description" content="Learn how SELECTEDVALUE works in Power BI, when to use it, and how to handle cases where one, multiple or no values are selected.">
+
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      color: #1f2937;
+      line-height: 1.7;
+      background: #ffffff;
+    }
+
+    a {
+      color: #111827;
+    }
+
+    h1, h2, h3 {
+      color: #111827;
+    }
+
+    code {
+      background: #f3f4f6;
+      padding: 3px 6px;
+      border-radius: 4px;
+    }
+
+    pre {
+      background: #f3f4f6;
+      padding: 18px;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+
+    .back {
+      margin-bottom: 30px;
+    }
+
+    .note {
+      background: #f9fafb;
+      border-left: 4px solid #111827;
+      padding: 16px;
+      margin: 25px 0;
+    }
+
+    .cta {
+      margin-top: 50px;
+      padding: 25px;
+      background: #111827;
+      color: white;
+      border-radius: 10px;
+    }
+
+    .cta h2 {
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="back">
+    <a href="index.html">← Back to Data with Ingrid</a>
+  </div>
+
+  <h1>Power BI SELECTEDVALUE Explained</h1>
+
+  <p>
+    SELECTEDVALUE is one of the most useful DAX functions when you want a measure
+    or label to react to a user's selection in a slicer or visual.
+  </p>
+
+  <h2>Basic syntax</h2>
+
+  <pre><code>SELECTEDVALUE(
+    Table[Column],
+    "Alternative Result"
+)</code></pre>
+
+  <p>
+    Power BI returns the selected value when exactly one value is available
+    in the current filter context.
+  </p>
+
+  <p>
+    If there is no single value, Power BI returns the alternative result.
+  </p>
+
+  <h2>Example</h2>
+
+  <p>
+    Imagine you have a product slicer and want to display the selected product
+    in a card.
+  </p>
+
+  <pre><code>Selected Product =
+SELECTEDVALUE(
+    Products[Product Name],
+    "All Products"
+)</code></pre>
+
+  <p>
+    If the user selects <code>Laptop</code>, the result is:
+  </p>
+
+  <pre><code>Laptop</code></pre>
+
+  <p>
+    If multiple products are selected, the result is:
+  </p>
+
+  <pre><code>All Products</code></pre>
+
+  <h2>Using SELECTEDVALUE for dynamic titles</h2>
+
+  <p>
+    You can combine SELECTEDVALUE with text to create a dynamic title.
+  </p>
+
+  <pre><code>Dynamic Title =
+"Sales for " &
+SELECTEDVALUE(
+    Products[Product Name],
+    "All Products"
+)</code></pre>
+
+  <p>
+    This could display:
+  </p>
+
+  <pre><code>Sales for Laptop</code></pre>
+
+  <p>
+    or:
+  </p>
+
+  <pre><code>Sales for All Products</code></pre>
+
+  <h2>Using a custom fallback</h2>
+
+  <p>
+    You are not limited to text such as "All Products".
+    You can use any alternative value that makes sense for your report.
+  </p>
+
+  <pre><code>Selected Region =
+SELECTEDVALUE(
+    Geography[Region],
+    "Multiple or no regions selected"
+)</code></pre>
+
+  <div class="note">
+    <strong>Important:</strong>
+    SELECTEDVALUE returns the selected value only when there is exactly one
+    distinct value in the current filter context.
+  </div>
+
+  <h2>SELECTEDVALUE and BLANK()</h2>
+
+  <p>
+    If you do not provide an alternative result, SELECTEDVALUE returns BLANK()
+    when there is not exactly one value.
+  </p>
+
+  <pre><code>Selected Customer =
+SELECTEDVALUE(
+    Customers[Customer Name]
+)</code></pre>
+
+  <p>
+    This is useful when you want a card or label to stay empty until the user
+    makes a specific selection.
+  </p>
+
+  <h2>Common use cases</h2>
+
+  <ul>
+    <li>Dynamic chart titles</li>
+    <li>Dynamic KPI labels</li>
+    <li>Showing the selected customer, product or region</li>
+    <li>Changing measure behaviour based on slicer selections</li>
+    <li>Displaying a custom message when no single value is selected</li>
+  </ul>
+
+  <h2>SELECTEDVALUE vs HASONEVALUE</h2>
+
+  <p>
+    SELECTEDVALUE is useful when you want to retrieve the actual selected value.
+  </p>
+
+  <p>
+    HASONEVALUE is useful when you only want to check whether there is exactly
+    one value in the current filter context.
+  </p>
+
+  <pre><code>Show Sales =
+IF(
+    HASONEVALUE(Products[Product Name]),
+    [Total Sales],
+    BLANK()
+)</code></pre>
+
+  <div class="cta">
+    <h2>Need help with DAX?</h2>
+
+    <p>
+      If you're stuck with SELECTEDVALUE, dynamic measures, filters or KPI logic,
+      I offer practical Power BI troubleshooting and data analysis support.
+    </p>
+  </div>
+
+</body>
+</html>
