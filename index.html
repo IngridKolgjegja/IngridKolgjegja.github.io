@@ -132,7 +132,14 @@
       gap: 24px;
     }
 
+    .tutorial-link {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
     .card {
+      height: 100%;
       background: white;
       border: 1px solid #e5e7eb;
       border-radius: 12px;
@@ -162,6 +169,10 @@
       text-align: center;
     }
 
+    .about-box h2 {
+      color: white;
+    }
+
     .about-box p {
       max-width: 750px;
       margin: 15px auto 0;
@@ -178,6 +189,10 @@
     }
 
     @media (max-width: 800px) {
+      .hero {
+        padding-top: 70px;
+      }
+
       .hero h1 {
         font-size: 2.5rem;
       }
@@ -231,6 +246,7 @@
       </p>
 
       <div class="cards">
+
         <div class="card">
           <h3>Power BI</h3>
           <p>
@@ -251,6 +267,7 @@
             Learn how to clean, analyse and interpret data for real business questions.
           </p>
         </div>
+
       </div>
     </section>
 
@@ -258,49 +275,48 @@
       <h2>Latest Tutorials</h2>
 
       <p class="section-intro">
-        New tutorials will be published regularly.
+        Practical Power BI tutorials based on common data analysis problems.
       </p>
 
       <div class="cards">
-        <div class="card">
-          <a href="power-bi-previous-month.html" style="text-decoration:none; color:inherit;">
-  <div class="card">
-    <h3>Power BI Previous Month</h3>
-    <p>
-      Learn how to calculate and compare the previous month using DAX.
-    </p>
-  </div>
-</a>
 
-        <a href="power-bi-dynamic-kpi-card.html" style="text-decoration:none; color:inherit;">
-  <div class="card">
-    <h3>Dynamic KPI Cards</h3>
-    <p>
-      Create KPI cards that respond dynamically to filters and user selections.
-    </p>
-  </div>
-</a>
+        <a href="power-bi-previous-month.html" class="tutorial-link">
+          <div class="card">
+            <h3>Power BI Previous Month</h3>
+            <p>
+              Learn how to calculate and compare the previous month using DAX.
+            </p>
+          </div>
+        </a>
 
-        <a href="power-bi-filters-not-working.html" style="text-decoration:none; color:inherit;">
-  <div class="card">
-    <h3>Power BI Filters Explained</h3>
-    <p>
-      Understand why filters sometimes do not work and how to fix them.
-    </p>
-  </div>
-</a>
+        <a href="power-bi-dynamic-kpi-card.html" class="tutorial-link">
+          <div class="card">
+            <h3>Dynamic KPI Cards</h3>
+            <p>
+              Create KPI cards that respond dynamically to filters and user selections.
+            </p>
+          </div>
+        </a>
+
+        <a href="power-bi-filters-not-working.html" class="tutorial-link">
+          <div class="card">
+            <h3>Power BI Filters Explained</h3>
+            <p>
+              Understand why filters sometimes do not work and how to fix them.
+            </p>
+          </div>
+        </a>
+
+        <a href="power-bi-selectedvalue.html" class="tutorial-link">
+          <div class="card">
+            <h3>Power BI SELECTEDVALUE</h3>
+            <p>
+              Learn how SELECTEDVALUE works and how to use it for dynamic labels, cards and slicers.
+            </p>
+          </div>
+        </a>
+
       </div>
-
-        <a href="power-bi-selectedvalue.html" style="text-decoration:none; color:inherit;">
-  <div class="card">
-    <h3>Power BI SELECTEDVALUE</h3>
-    <p>
-      Learn how SELECTEDVALUE works and how to use it for dynamic labels, cards and slicers.
-    </p>
-  </div>
-</a>
-
-        
     </section>
 
     <section class="section" id="about">
@@ -309,11 +325,11 @@
 
         <p>
           I'm an economist and data scientist currently working at UNCTAD in Geneva,
-      where I work on international trade analysis and economic data.
-      My background combines economics, statistics, data science and business intelligence,
-      with professional experience in Power BI, Python, SQL and applied analytics.
-      Through Data with Ingrid, I share practical tutorials based on real analytical
-      problems and make data tools easier to understand and use.
+          where I work on international trade analysis and economic data.
+          My background combines economics, statistics, data science and business intelligence,
+          with professional experience in Power BI, Python, SQL and applied analytics.
+          Through Data with Ingrid, I share practical tutorials based on real analytical
+          problems and make data tools easier to understand and use.
         </p>
       </div>
     </section>
