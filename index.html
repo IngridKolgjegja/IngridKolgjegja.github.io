@@ -31,8 +31,6 @@
       line-height: 1.6;
     }
 
-    /* HEADER */
-
     header {
       background: white;
       border-bottom: 1px solid #e5e7eb;
@@ -70,8 +68,6 @@
     .nav-links a:hover {
       color: #111827;
     }
-
-    /* HERO */
 
     .hero {
       max-width: 1100px;
@@ -141,8 +137,6 @@
       background: #f3f4f6;
     }
 
-    /* SECTIONS */
-
     .section {
       max-width: 1100px;
       margin: 0 auto;
@@ -162,8 +156,6 @@
       max-width: 700px;
       margin: 0 auto 40px;
     }
-
-    /* CARDS */
 
     .cards {
       display: grid;
@@ -213,8 +205,6 @@
       letter-spacing: 0.5px;
     }
 
-    /* ABOUT */
-
     .about-box {
       background: #111827;
       color: white;
@@ -233,8 +223,6 @@
       color: #d1d5db;
     }
 
-    /* FOOTER */
-
     footer {
       margin-top: 70px;
       padding: 30px 24px;
@@ -243,8 +231,6 @@
       border-top: 1px solid #e5e7eb;
       background: white;
     }
-
-    /* MOBILE */
 
     @media (max-width: 800px) {
 
@@ -273,8 +259,6 @@
 </head>
 
 <body>
-
-  <!-- HEADER -->
 
   <header>
 
@@ -345,7 +329,7 @@
 
         <!-- POWER BI -->
 
-        <a href="#tutorials" class="tutorial-link">
+        <a href="#power-bi-tutorials" class="tutorial-link">
 
           <div class="card">
 
@@ -369,7 +353,7 @@
 
         <!-- SQL -->
 
-        <a href="sql/sql-for-data-analysis.html" class="tutorial-link">
+        <a href="#sql-tutorials" class="tutorial-link">
 
           <div class="card">
 
@@ -415,22 +399,36 @@
     </section>
 
 
-    <!-- TUTORIALS -->
+    <!-- ALL TUTORIALS -->
 
     <section class="section" id="tutorials">
 
       <h2>
-        Latest Tutorials
+        Tutorials
       </h2>
 
       <p class="section-intro">
         Step-by-step tutorials designed around practical problems analysts encounter in real projects.
       </p>
 
+    </section>
+
+
+    <!-- SQL TUTORIALS -->
+
+    <section class="section" id="sql-tutorials">
+
+      <h2>
+        SQL Tutorials
+      </h2>
+
+      <p class="section-intro">
+        Practical SQL for data analysts, from core querying to business analysis and reporting.
+      </p>
 
       <div class="cards">
 
-        <!-- SQL -->
+        <!-- SQL FOR DATA ANALYSIS -->
 
         <a href="sql/sql-for-data-analysis.html" class="tutorial-link">
 
@@ -453,6 +451,72 @@
 
         </a>
 
+
+        <!-- SQL JOINS -->
+
+        <a href="sql/joins.html" class="tutorial-link">
+
+          <div class="card">
+
+            <div class="tag">
+              SQL
+            </div>
+
+            <h3>
+              SQL JOINs Explained
+            </h3>
+
+            <p>
+              Learn INNER JOIN, LEFT JOIN, RIGHT JOIN and FULL OUTER JOIN
+              with practical data analysis examples.
+            </p>
+
+          </div>
+
+        </a>
+
+
+        <!-- GROUP BY -->
+
+        <a href="sql/group-by-having.html" class="tutorial-link">
+
+          <div class="card">
+
+            <div class="tag">
+              SQL
+            </div>
+
+            <h3>
+              SQL GROUP BY and HAVING
+            </h3>
+
+            <p>
+              Learn how to aggregate data, calculate KPIs and filter grouped
+              results using GROUP BY and HAVING.
+            </p>
+
+          </div>
+
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- POWER BI TUTORIALS -->
+
+    <section class="section" id="power-bi-tutorials">
+
+      <h2>
+        Power BI Tutorials
+      </h2>
+
+      <p class="section-intro">
+        Practical Power BI guides for dashboards, modeling, filtering and interactive reporting.
+      </p>
+
+      <div class="cards">
 
         <!-- PREVIOUS MONTH -->
 
